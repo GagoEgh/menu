@@ -1,0 +1,82 @@
+.dashboards{
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+
+.navbar{
+    height: 50px;
+}
+
+.navbar h1{
+    color: green;
+}
+
+.user{
+    display: flex;
+    justify-content: space-between;
+    width: 170px;
+}
+
+.input-group-text{
+    border-radius: 90%;
+    height: 40px;
+    width: 40px;
+    background: white;
+    margin-bottom: 10px;
+}
+
+.user-name{
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.firstName{
+    margin-right: 5px;
+}
+.down{
+    color: gray;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.bar{
+    width: 200px;
+    height:100vh;
+}
+
+.blocks{
+    padding-top: 50px;
+    display: flex;
+
+}
+
+.blocks__router{
+    width: 90%;
+}
+
+.ul{
+    list-style: none;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.ul li{
+    padding: 10px;
+    border-bottom: 1px solid grey;
+}
+
+.ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+.blocks .navbar{
+    display: flex;
+    align-items: start;
+}
+
+.active{
+    background-color: rgb(34, 224, 34);
+}

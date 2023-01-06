@@ -1,0 +1,45 @@
+.dashboard{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.block{
+    width: 180px;
+    height: 150px;
+    color: white;
+}
+
+.block__header{
+    border-bottom: 1px solid rgba(21, 21, 21, 0.295);
+    padding: 5px;
+    text-transform: capitalize;
+}
+
+.block_title{
+    text-align: center;
+}
+
+.count{
+    font-weight: 600;
+    font-size: 30px;
+}
+.amount{
+    background-color:rgba(46, 129, 239, 0.927);
+    padding: 5px;
+}
+
+.newOrders{
+    padding: 5px;
+    background-color: rgba(75, 221, 22, 0.897);
+}
+
+.wayOrders{
+    padding: 5px;
+    background-color: tomato;
+}
+
+.drivers{
+    padding: 5px;
+    background-color: rgba(13, 224, 224, 0.735);
+}
