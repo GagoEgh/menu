@@ -13,9 +13,11 @@
 }
 
 .user{
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: 170px;
+    color: gray;
 }
 
 .input-group-text{
@@ -27,7 +29,6 @@
 }
 
 .user-name{
-    color: white;
     display: flex;
     align-items: center;
     margin-left: 10px;
@@ -36,18 +37,20 @@
 .firstName{
     margin-right: 5px;
 }
+
 .down{
     color: gray;
     margin-top: 10px;
     cursor: pointer;
 }
+
 .bar{
-    width: 200px;
+    width: 350px;
     height:100vh;
 }
 
 .blocks{
-    padding-top: 50px;
+    padding-top: 60px;
     display: flex;
 
 }
@@ -79,4 +82,29 @@
 
 .active{
     background-color: rgb(34, 224, 34);
+}
+
+.profile{
+    position: absolute;
+    top: 39px;
+    left: 5px;
+    width: 170px;
+    color: gray;
+    list-style: none;
+    transition: ();
+}
+
+.profile li{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    width: inherit;
+    padding: 5px;
+    margin-left: -32px;
+    transition: 0.5s all;
+}
+
+.profile li:hover{
+    background-color: rgb(68, 68, 68);
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router} from '@angular/router';
 import { IUser } from 'src/app/models/IUser';
-import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +9,20 @@ import { UserService } from 'src/app/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  user!:IUser
+  user!:IUser;
+  isUserProfile = false
   constructor(
-    private _userService:UserService
+    private _router:Router
   ) { }
 
   ngOnInit(): void {
-    this.user = this._userService.getUser();
-    console.log(this.user)
+    this.user = JSON.parse(localStorage.getItem('user')!)
   }
-
+ 
+  logout(){
+    localStorage.removeItem('user');
+    localStorage.removeItem('tocken');
+    this._router.navigate(['']);
+  }
 
 }

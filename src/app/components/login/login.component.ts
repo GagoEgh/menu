@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/models/IUser';
-import { UserService } from 'src/app/user.service';
 import { UseresClass } from 'src/app/users';
 
 @Component({
@@ -19,7 +18,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -42,8 +40,10 @@ export class LoginComponent implements OnInit {
     });
 
     if (this.user) {
-      this._userService.setUser(this.user);
+
+     
       localStorage.setItem('tocken', 'acssesTocken');
+      localStorage.setItem('user',JSON.stringify(this.user))
       this._router.navigate(['nav']);
     }else{
       this.isLogin = true

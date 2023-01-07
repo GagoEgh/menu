@@ -8,9 +8,10 @@ import {
   DashboardsComponent,
   LoginComponent,
   NavbarComponent,
-  NewOrdersComponent
+  NewOrdersComponent,
+  SeenComponent,
+  UserProfileComponent
 } from './components';
-
 
 
 
@@ -21,7 +22,9 @@ import {
     LoginComponent,
     DashboardsComponent,
     NewOrdersComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserProfileComponent,
+    SeenComponent
   ],
   imports: [
     BrowserModule,

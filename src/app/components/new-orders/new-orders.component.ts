@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IOrders } from 'src/app/models/IOrders';
+import { OrdersClass } from 'src/app/orders'
 
 @Component({
   selector: 'app-new-orders',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewOrdersComponent implements OnInit {
 
+  orders: IOrders = OrdersClass.Orders;
   constructor() { }
 
   ngOnInit(): void {
+
+  
+    console.log(this.orders)
   }
 
 }
