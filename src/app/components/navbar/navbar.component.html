@@ -4,7 +4,6 @@
             <div class="logo">
                 <h1>LOGO</h1>
             </div>
-
             <div class="user">
                 <span class="input-group-text" id="addon-wrapping">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
@@ -18,7 +17,7 @@
                     <p>{{user?.lastName}}</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-chevron-down down" viewBox="0 0 16 16"  (click)="isUserProfile = !isUserProfile">
+                    class="bi bi-chevron-down down" viewBox="0 0 16 16" (click)="isUserProfile = !isUserProfile">
                     <path fill-rule="evenodd"
                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                 </svg>
@@ -42,42 +41,34 @@
                                 d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
                         </svg>
                     </li>
-
                 </ul>
             </div>
-
-
-
         </div>
     </nav>
 
     <div class="container blocks">
-
         <nav class="navbar bg-dark bar" data-bs-theme="dark">
             <ul class="ul">
                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     <a [routerLink]="['/nav','dashboards']">Dashboard</a>
                 </li>
-                <li routerLinkActive="active">
-                    <a href="#">Statistics</a>
+                <li>
+                    Statistics
                 </li>
-                <li routerLinkActive="active">
-                    <a href="#">Live Map</a>
+                <li>
+                    Live Map
                 </li>
                 <li routerLinkActive="active">
                     <a [routerLink]=" ['/nav','new-orders']">New Orders</a>
                 </li>
-                <li routerLinkActive="active">
-                    <a [routerLink]="['/nav','seen']">Seen Orders</a>
+                <li>
+                    in Proccess Orders
                 </li>
-                <li routerLinkActive="active">
-                    <a href="#">in Proccess Orders</a>
+                <li>
+                    Rejected Orders
                 </li>
-                <li routerLinkActive="active">
-                    <a href="#">Rejected Orders</a>
-                </li>
-                <li routerLinkActive="active">
-                    <a href="#">Compleated Orders</a>
+                <li >
+                   Compleated Orders
                 </li>
             </ul>
         </nav>

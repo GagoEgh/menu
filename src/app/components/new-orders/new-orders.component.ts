@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrders } from 'src/app/models/IOrders';
+import { IWaiter } from 'src/app/models/IWaiter';
 import { OrdersClass } from 'src/app/orders'
 
 @Component({
@@ -9,13 +9,9 @@ import { OrdersClass } from 'src/app/orders'
 })
 export class NewOrdersComponent implements OnInit {
 
-  orders: IOrders = OrdersClass.Orders;
+  orders: IWaiter[] = OrdersClass.Orders;
   constructor() { }
 
-  ngOnInit(): void {
-
-  
-    console.log(this.orders)
-  }
+  ngOnInit(): void { }
 
 }

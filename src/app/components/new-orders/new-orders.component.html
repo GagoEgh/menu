@@ -1,4 +1,4 @@
-<div class="card mb-3" *ngFor="let order of orders.waiter">
+<div class="card mb-3" *ngFor="let order of orders">
     <div class="row g-0">
       <div class="col-md-4">
         <img [src]="order?.img" class="img-fluid rounded-start" alt="...">
@@ -10,7 +10,7 @@
           <p class="card-text">{{order.price|currency}}</p>
         </div>
         <div class="more">
-            <button class="btn btn-success" [routerLink]="['/nav','seen']">More</button>
+            <button class="btn btn-success" [routerLink]="['/nav','seen', order.code]">More</button>
         </div>
       </div>
     </div>

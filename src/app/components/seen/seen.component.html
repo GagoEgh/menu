@@ -1,1 +1,49 @@
-<p>seen works!</p>
+<section class="section">
+    <div class="img">
+        <img [src]="waiter?.img" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="cardBody">
+        <button type="button" class="btn btn-danger delete">Delete</button>
+        <div class="card-text">
+            <div class="waiter">
+                <p class="card-text">Company-{{waiter?.company}}</p>
+                <p class="card-text">Phone-{{waiter?.phone}}</p>
+                <p class="card-text">Type-{{waiter?.type}}</p>
+                <p class="card-text">Address-{{waiter?.address?.company}}
+                    {{waiter?.address?.street}} {{waiter?.address?.city}}
+                </p>
+
+            </div>
+            <div class="client">
+                <p class="card-text">Client</p>
+                <p class="card-text">Phone-{{user?.phoneNumber}}</p>
+                <p class="card-text">Balance-0</p>
+                <p class="card-text">Buy Date-{{waiter?.buyDate}}</p>
+                <p class="card-text">Address-{{user?.address}}</p>
+
+            </div>
+        </div>
+        <div class="buttons">
+
+            <button class="btn btn-success">seen</button>
+
+            <button class="btn btn-success">set driver</button>
+
+        </div>
+    </div>
+</section>
+
+<div class="card">
+    <h5 class="card-header">Goods</h5>
+    <div class="card-body">
+        <div class="block">
+            <img [src]="waiter?.img" class="img-fluid rounded-start" alt="...">
+
+            <div class="text">
+                <p class="card-text">Name  <span>{{waiter?.name}}</span></p>
+                <p class="card-text">Price <span>{{waiter?.price}}</span></p>
+                <p class="card-text">Ready Time <span>{{waiter?.time}}</span></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,31 +6,36 @@ export class UseresClass{
         firstName:'Dispatcher',
         lastName: 'Dispatcheryan',
         phoneNumber:+37477232382,
-        email:'dispatcher@gmail.com'
+        email:'dispatcher@gmail.com',
+        address:'Hamzachiman'
     },
     {
         firstName:'Ones',
         lastName: 'Onesyan',
         phoneNumber:+37495342312,
-        email:'ones@gmail.com'
+        email:'ones@gmail.com',
+        address:'Chjxlar'
     },
     {
         firstName:'Qim',
         lastName: 'Qardashyan',
         phoneNumber:+374555555,
-        email:'qim@gmail.com'
+        email:'qim@gmail.com',
+        address:'Hamzachiman'
     },
     {
         firstName:'Joni',
         lastName: 'Deph',
         phoneNumber:+37495748965,
-        email:'joni@gmail.com'
+        email:'joni@gmail.com',
+        address:'Hamzachiman'
     },
     {
         firstName:'Mico',
         lastName: 'Micoyan',
         phoneNumber:+37493578944,
-        email:'mico@gmail.com'
+        email:'mico@gmail.com',
+        address:'Hamzachiman'
     }
  ]
 }

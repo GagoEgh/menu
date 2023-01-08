@@ -1,4 +1,6 @@
 export interface IWaiter{
+    name:string,
+    time:number,
     company:string,
     buyDate: string,
     price:number,

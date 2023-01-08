@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: 'dashboards', component: DashboardsComponent, },
       { path: 'new-orders', component: NewOrdersComponent },
       { path: 'profile', component: UserProfileComponent },
-      {path:'seen',component:SeenComponent}
+      {path:'seen/:id',component:SeenComponent}
     ]
   },
   { path: '**', redirectTo: '',component:LoginComponent }
