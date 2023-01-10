@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { first, interval, map, Observable, of, skip, Subject, Subscriber, take, takeUntil, tap } from 'rxjs';
+import { SafeSubscriber } from 'rxjs/internal/Subscriber';
 import { IUser } from 'src/app/models/IUser';
 import { UseresClass } from 'src/app/users';
 
@@ -9,16 +11,22 @@ import { UseresClass } from 'src/app/users';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
   user!: IUser | undefined;
   private users = UseresClass.User;
 
+
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
   ) { }
+
+  ngOnDestroy(): void {
+ 
+
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -41,11 +49,11 @@ export class LoginComponent implements OnInit {
 
     if (this.user) {
 
-     
+
       localStorage.setItem('tocken', 'acssesTocken');
-      localStorage.setItem('user',JSON.stringify(this.user))
+      localStorage.setItem('user', JSON.stringify(this.user))
       this._router.navigate(['nav']);
-    }else{
+    } else {
       this.isLogin = true
     }
   }

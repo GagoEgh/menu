@@ -11,28 +11,18 @@ import { OrdersClass } from 'src/app/orders'
 })
 export class SeenComponent implements OnInit {
   orders: IWaiter[] = OrdersClass.Orders;
-  waiter!:IWaiter|undefined;
-  user!:IUser;
+  waiter!: IWaiter | undefined;
+  user!: IUser;
   constructor(
     private _activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-      this.user = JSON.parse(localStorage.getItem('user')!)
-      this.findOrder();
+    this.user = JSON.parse(localStorage.getItem('user')!)
+    this.waiter = this._activeRoute.snapshot.data['orderID'];
+  
   }
 
-  findOrder(){
-    this._activeRoute.params.subscribe(
-      {
-        next:(params:any)=>{
-          this.waiter = this.orders.find((item)=>{
-            return item.code === +params.id
-          })
- 
-        }
-      }
-    )
-  }
+
 
 }

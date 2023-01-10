@@ -1,10 +1,8 @@
 
-import { IUser } from "./models/IUser";
 import { IWaiter } from "./models/IWaiter";
 
 
 export class OrdersClass {
-    static user: IUser = JSON.parse(localStorage.getItem('user')!);
 
     static Orders: IWaiter[] =
 
