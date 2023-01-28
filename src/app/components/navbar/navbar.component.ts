@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-import { IUser } from 'src/app/models/IUser';
+// import { IUser } from 'src/app/models/IUser';
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +9,14 @@ import { IUser } from 'src/app/models/IUser';
 })
 export class NavbarComponent implements OnInit {
 
-  user!:IUser;
+  // user!:IUser;
   isUserProfile = false
   constructor(
     private _router:Router
   ) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user')!)
+    // this.user = JSON.parse(localStorage.getItem('user')!)
   }
  
   logout(){

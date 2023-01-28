@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first, interval, map, Observable, of, skip, Subject, Subscriber, take, takeUntil, tap } from 'rxjs';
-import { SafeSubscriber } from 'rxjs/internal/Subscriber';
-import { IUser } from 'src/app/models/IUser';
-import { UseresClass } from 'src/app/users';
+import { Subject, takeUntil } from 'rxjs';
+import { IHttpResponse } from 'src/app/models/IHttpResponse';
+import { ILoginResponse } from 'src/app/models/ILoginResponse';
+import { LoginDTO } from'../../models/LoginDTO';
+;
+import { OrderService } from 'src/app/services/order.service';
+
 
 @Component({
   selector: 'app-login',
@@ -13,20 +16,16 @@ import { UseresClass } from 'src/app/users';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
+  subject$ = new Subject<void>();
   loginForm!: FormGroup;
-  user!: IUser | undefined;
-  private users = UseresClass.User;
-
+  httpErroeMessages!: string[];
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
+    private _orderService: OrderService
   ) { }
 
-  ngOnDestroy(): void {
- 
-
-  }
 
   ngOnInit(): void {
     this.initForm();
@@ -34,27 +33,39 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.loginForm = this._fb.group({
-      name: [''],
+      email: [''],
       password: ['']
     })
   }
 
-  isLogin = false
+
   onLogin() {
-    let [firstName, lastName] = [... (this.loginForm.value.name as string).split(' ')]
-    this.user = this.users.find((user) => {
-      return user.firstName.toLowerCase() === firstName.toLowerCase()
-        && user.lastName.toLowerCase() === lastName.toLowerCase()
-    });
-
-    if (this.user) {
-
-
-      localStorage.setItem('tocken', 'acssesTocken');
-      localStorage.setItem('user', JSON.stringify(this.user))
-      this._router.navigate(['nav']);
-    } else {
-      this.isLogin = true
+    if (this.loginForm.invalid) {
+      return
     }
+
+    const data = new LoginDTO(this.loginForm);
+    
+
+    this._orderService.loginUser(data)
+      .pipe(takeUntil(this.subject$))
+      .subscribe({
+        next: (res: IHttpResponse<ILoginResponse>) => {
+          localStorage.setItem('accessToken', res.data.accessToken);
+          this._router.navigate(['nav']);
+          this.httpErroeMessages = []
+        },
+        error: (err: string[]) => {
+          this.httpErroeMessages = err;
+        }
+      })
+
   }
+
+
+  ngOnDestroy(): void {
+    this.subject$.next();
+    this.subject$.complete()
+  }
+
 }

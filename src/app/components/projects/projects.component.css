@@ -1,0 +1,10 @@
+.container{
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.section{
+    border: 1px solid;
+}

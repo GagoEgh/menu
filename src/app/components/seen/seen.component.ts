@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IUser } from 'src/app/models/IUser';
+// import { IUser } from 'src/app/models/IUser';
 import { IWaiter } from 'src/app/models/IWaiter';
 import { OrdersClass } from 'src/app/orders'
 
@@ -12,13 +12,13 @@ import { OrdersClass } from 'src/app/orders'
 export class SeenComponent implements OnInit {
   orders: IWaiter[] = OrdersClass.Orders;
   waiter!: IWaiter | undefined;
-  user!: IUser;
+
   constructor(
     private _activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user')!)
+  
     this.waiter = this._activeRoute.snapshot.data['orderID'];
   
   }

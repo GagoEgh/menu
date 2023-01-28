@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from 'src/app/models/IUser';
+// import { IUser } from 'src/app/models/IUser';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { IUser } from 'src/app/models/IUser';
 })
 export class DashboardsComponent implements OnInit {
 
-  user!:IUser
+  // user!:IUser
   constructor(
   ) { }
 

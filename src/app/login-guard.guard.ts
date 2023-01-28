@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate, CanActivateChild {
+export class LoginGuard implements CanActivate{
   constructor(private _router: Router) {
 
   }
@@ -15,7 +15,7 @@ export class LoginGuard implements CanActivate, CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const tocken = localStorage.getItem('tocken')
+    const tocken = localStorage.getItem('accessToken')
     if (tocken) {
       return true;
     }
@@ -23,8 +23,6 @@ export class LoginGuard implements CanActivate, CanActivateChild {
     return this._router.navigate([''])
 
   }
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return this.canActivate(childRoute, state)
-  }
+
 
 }
