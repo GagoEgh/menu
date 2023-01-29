@@ -13,17 +13,7 @@ export class VacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this._orderService.postVacancies()
-    // .subscribe({
-    //   next:(res)=>{
-    //     console.log(res)
-    //   },
-    //   error:(err)=>{
-    //     console.log(err)
-    //   }
-    // })
-
-    this._orderService.getVacancies()
+    this._orderService.postVacancies()
     .subscribe({
       next:(res)=>{
         console.log(res)
@@ -32,6 +22,16 @@ export class VacanciesComponent implements OnInit {
         console.log(err)
       }
     })
+
+    // this._orderService.getVacancies()
+    // .subscribe({
+    //   next:(res)=>{
+    //     console.log(res)
+    //   },
+    //   error:(err)=>{
+    //     console.log(err)
+    //   }
+    // })
   }
 
 

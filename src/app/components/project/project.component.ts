@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IProjectResponse } from 'src/app/models/IProjectResponse';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-project',
@@ -10,29 +9,31 @@ import { IProjectResponse } from 'src/app/models/IProjectResponse';
 })
 export class ProjectComponent implements OnInit {
 
-  projectForm!: FormGroup;
-  project!: IProjectResponse;
+  @Input() project!: IProjectResponse;
+
+  @Output() deleteProject = new EventEmitter()
   constructor(
-    private _activatedRoute: ActivatedRoute,
-    private _fb: FormBuilder
-  ) { }
+    private _orderService: OrderService
+  ) {
+
+  }
 
   ngOnInit(): void {
-    this.project = this._activatedRoute.snapshot.data['projectId'].data;
-    this.initProjectForm()
-  }
-
-
-  initProjectForm() {
-    this.projectForm = this._fb.group({
-      title: [this.project.title],
-      description: [this.project.description]
-
-    })
 
   }
 
-  update() {
+  delete(id: number) {
+    this._orderService.deleteProject(id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          // this._orderService.getProjectsAll()
+          this.deleteProject.emit(res.data)
 
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
   }
 }

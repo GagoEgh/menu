@@ -1,0 +1,7 @@
+<section class="section">
+    <form class="form" [formGroup]="projectForm" (ngSubmit)="update()">
+        <input type="text" formControlName="title">
+        <textarea class="textarea" rows="4" cols="50" formControlName="description"></textarea>
+        <button class="btn btn-success">update</button>
+    </form>
+</section>

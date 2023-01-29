@@ -22,7 +22,7 @@ export class ProjectIdResolver implements Resolve<boolean> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<any> {
     const id = route.paramMap.get('id');
-    return this._orderService.getProject(+id!)
+    return this._orderService.getProjectById(+id!)
       .pipe(catchError(() => {
         this._router.navigate(['/nav', 'new-orders'])
         return EMPTY

@@ -1,9 +1,8 @@
 <section class="section">
-
-    <form [formGroup]="projectForm" (ngSubmit)="update()">
-        <input type="text" formControlName="title">
-        <textarea rows="4" cols="50" formControlName="description"></textarea>
-        <button class="btn btn-success">update</button>
-    </form>
-   
+    <h1>{{project.title}}</h1>
+    <p appHtmlelemt [description]="project.description">{{project.description}}</p>
+    <div class="btn-group">
+        <button class="button more" [routerLink]="['/nav','updateProject', project.id]">More</button>
+        <button class="button delete" (click)="delete(project.id!)">Delete</button>
+    </div>
 </section>

@@ -9,6 +9,7 @@ import {
   ProjectsComponent,
   SeenComponent,
   TrainingsComponent,
+  UpdateProjectComponent,
   UserProfileComponent,
   VacanciesComponent
 } from './components';
@@ -30,7 +31,7 @@ const routes: Routes = [
       { path: 'vacancies', component: VacanciesComponent },
       { path: 'projects', component: ProjectsComponent },
       {
-        path:'project/:id',component:ProjectComponent,
+        path:'updateProject/:id',component:UpdateProjectComponent,
         resolve:{projectId:ProjectIdResolver}
       },
       {

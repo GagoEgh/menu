@@ -13,19 +13,24 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   projects!: IProjectResponse[];
   subject$ = new Subject<void>();
-  
+
   constructor(
     private _orderService: OrderService
   ) { }
 
 
   ngOnInit(): void {
+    // this._orderService.postProjects().subscribe({
+    //   next:(res)=>{
+    //     console.log(res)
+    //   }
+    // })
 
-    this.getProjects();
+    this.getProjectsAll();
   }
 
-  getProjects() {
-    this._orderService.getProjects()
+  getProjectsAll() {
+    this._orderService.getProjectsAll()
       .pipe(takeUntil(this.subject$))
       .subscribe({
         next: (res: IHttpResponse<IProjectResponse[]>) => {
@@ -35,6 +40,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           console.log(err)
         }
       })
+  }
+
+  changeProjects(event:IProjectResponse[]){
+    this.projects = event
   }
 
   ngOnDestroy(): void {

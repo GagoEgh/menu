@@ -1,5 +1,5 @@
 export interface IProjectResponse {
     description: string,
-    id: number
+    id?: number
     title: string
 }

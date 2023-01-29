@@ -13,11 +13,12 @@ import {
   ProjectsComponent,
   SeenComponent,
   TrainingsComponent,
+  UpdateProjectComponent,
   UserProfileComponent,
   VacanciesComponent
 } from './components';
 import { TokenInterceptor } from './services/token.interceptor';
-
+import { HtmlelemtDirective } from './htmlelemt.directive';
 
 
 
@@ -39,7 +40,9 @@ import { TokenInterceptor } from './services/token.interceptor';
     TrainingsComponent,
     VacanciesComponent,
     ProjectsComponent,
-    ProjectComponent
+    ProjectComponent,
+    HtmlelemtDirective,
+    UpdateProjectComponent
   ],
   imports: [
     BrowserModule,
