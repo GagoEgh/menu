@@ -1,1 +1,17 @@
-<p>vacancies works!</p>
+<div class="container">
+    <form class="form" [formGroup]="vacancieForm" (ngSubmit)="onSubmit()">
+        <div class="input-group flex-nowrap">
+            <input type="text" class="form-control" formControlName="shortDescription" placeholder="ShortDescription"
+                aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group flex-nowrap">
+            <input type="text" class="form-control" formControlName="description" placeholder="Description"
+                aria-describedby="addon-wrapping">
+        </div>
+     
+        <button class="btn btn-success">add</button>
+    </form>
+    <app-vacancie *ngFor="let vacancie of vacancies" [vacancie]="vacancie"></app-vacancie> 
+
+    
+</div>

@@ -12,10 +12,14 @@ import {
   ProjectComponent,
   ProjectsComponent,
   SeenComponent,
+  TrainingComponent,
   TrainingsComponent,
   UpdateProjectComponent,
+  UpdatevacanciesComponent,
   UserProfileComponent,
-  VacanciesComponent
+  VacancieComponent,
+  VacanciesComponent,
+  UpdatetrainingComponent
 } from './components';
 import { TokenInterceptor } from './services/token.interceptor';
 import { HtmlelemtDirective } from './htmlelemt.directive';
@@ -24,25 +28,34 @@ import { HtmlelemtDirective } from './htmlelemt.directive';
 
 
 
+const components = [
+  AppComponent,
+  LoginComponent,
+  DashboardsComponent,
+  NewOrdersComponent,
+  NavbarComponent,
+  UserProfileComponent,
+  SeenComponent,
+  TrainingsComponent,
+  VacanciesComponent,
+  ProjectsComponent,
+  ProjectComponent,
+  UpdateProjectComponent,
+  VacancieComponent,
+  VacanciesComponent,
+  UpdatevacanciesComponent,
+  TrainingComponent,
+  UpdatetrainingComponent
+]
+
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    DashboardsComponent,
-    NewOrdersComponent,
-    NavbarComponent,
-    UserProfileComponent,
-    SeenComponent,
-    TrainingsComponent,
-    VacanciesComponent,
-    ProjectsComponent,
-    ProjectComponent,
+    ...components,
     HtmlelemtDirective,
-    UpdateProjectComponent
   ],
   imports: [
     BrowserModule,

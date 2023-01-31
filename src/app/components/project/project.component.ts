@@ -1,39 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IProjectResponse } from 'src/app/models/IProjectResponse';
-import { OrderService } from 'src/app/services/order.service';
+import { Component,Input } from '@angular/core';
+import { ProjectDTO } from 'src/app/models/ProjectDTO';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  styleUrls: ['./project.component.css'],
+  
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent  {
 
-  @Input() project!: IProjectResponse;
+  @Input() project!: ProjectDTO;
 
-  @Output() deleteProject = new EventEmitter()
-  constructor(
-    private _orderService: OrderService
-  ) {
+  constructor() {}
 
-  }
 
-  ngOnInit(): void {
-
-  }
-
-  delete(id: number) {
-    this._orderService.deleteProject(id)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          // this._orderService.getProjectsAll()
-          this.deleteProject.emit(res.data)
-
-        },
-        error: (err) => {
-          console.log(err)
-        }
-      })
-  }
 }

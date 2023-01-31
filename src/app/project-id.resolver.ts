@@ -4,17 +4,16 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { catchError, EMPTY, Observable, of } from 'rxjs';
-import { IHttpResponse } from './models/IHttpResponse';
-import { IProjectResponse } from './models/IProjectResponse';
-import { OrderService } from './services/order.service';
+import { catchError, EMPTY, Observable} from 'rxjs';
+
+import { ProjectService } from './services/project.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectIdResolver implements Resolve<boolean> {
   constructor(
-    private _orderService: OrderService,
+    private _projectService: ProjectService,
     private _router: Router
   ) {
 
@@ -22,7 +21,7 @@ export class ProjectIdResolver implements Resolve<boolean> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<any> {
     const id = route.paramMap.get('id');
-    return this._orderService.getProjectById(+id!)
+    return this._projectService.getProjectById(+id!)
       .pipe(catchError(() => {
         this._router.navigate(['/nav', 'new-orders'])
         return EMPTY

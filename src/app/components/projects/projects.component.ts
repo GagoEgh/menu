@@ -1,39 +1,45 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
-import { IProjectResponse } from 'src/app/models/IProjectResponse';
-import { OrderService } from 'src/app/services/order.service';
+import { ProjectDTO } from 'src/app/models/ProjectDTO';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.css'],
+ 
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
 
-  projects!: IProjectResponse[];
+  projectForm!:FormGroup
+  projects!: ProjectDTO[];
   subject$ = new Subject<void>();
 
   constructor(
-    private _orderService: OrderService
+    private _projectService: ProjectService,
+    private _fb:FormBuilder
   ) { }
 
 
   ngOnInit(): void {
-    // this._orderService.postProjects().subscribe({
-    //   next:(res)=>{
-    //     console.log(res)
-    //   }
-    // })
-
     this.getProjectsAll();
+    this.initProjectForm();
+  }
+
+  initProjectForm(){
+    this.projectForm = this._fb.group({
+      title:['',[Validators.required]],
+      description:['',[Validators.required]]
+    })
   }
 
   getProjectsAll() {
-    this._orderService.getProjectsAll()
+    this._projectService.getProjectsAll()
       .pipe(takeUntil(this.subject$))
       .subscribe({
-        next: (res: IHttpResponse<IProjectResponse[]>) => {
+        next: (res: IHttpResponse<ProjectDTO[]>) => {
           this.projects = res.data;
         },
         error: (err) => {
@@ -42,8 +48,22 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       })
   }
 
-  changeProjects(event:IProjectResponse[]){
-    this.projects = event
+  onSubmit(){
+    if(this.projectForm.invalid){
+      return
+    }
+
+    const projectDTO = new ProjectDTO(this.projectForm)
+    this._projectService.postProject(projectDTO)
+    .subscribe({
+      next:(res:IHttpResponse<ProjectDTO[]>)=>{
+        this.projects = res.data;
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+
   }
 
   ngOnDestroy(): void {

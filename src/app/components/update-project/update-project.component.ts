@@ -1,25 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { IProjectResponse } from 'src/app/models/IProjectResponse';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { ProjectDTO } from 'src/app/models/ProjectDTO';
-import { OrderService } from 'src/app/services/order.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-update-project',
   templateUrl: './update-project.component.html',
-  styleUrls: ['./update-project.component.css']
+  styleUrls: ['./update-project.component.css'],
 })
-export class UpdateProjectComponent implements OnInit {
+export class UpdateProjectComponent implements OnInit, OnDestroy {
 
 
   projectForm!: FormGroup;
-  project!: IProjectResponse;
+  project!: ProjectDTO;
+  unSubscribe$ = new Subject<void>();
+  errroreMsg!: string[];
+  successMsg = '';
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder,
-    private _orderService: OrderService
+    private _projectService: ProjectService,
+    private _router: Router
   ) { }
+
 
   ngOnInit(): void {
     this.project = this._activatedRoute.snapshot.data['projectId'].data;
@@ -38,15 +44,39 @@ export class UpdateProjectComponent implements OnInit {
 
   update() {
     const projectDTO = new ProjectDTO(this.projectForm);
-    this._orderService.putProject(this.project.id!, projectDTO)
+    this._projectService.putProject(this.project.id!, projectDTO)
+      .pipe(takeUntil(this.unSubscribe$))
       .subscribe({
-        next: (res: any) => {
-          console.log(res)
+        next: () => {
+          this.successMsg = 'update is successful'
+          setTimeout(() => {
+            this.successMsg = ''
+          }, 3000)
+        },
+        error: (err) => {
+
+          console.log(err);
+          this.errroreMsg = err.error.message
+        }
+      })
+  }
+
+  delete(id: number) {
+    this._projectService.deleteProject(id)
+      .pipe(takeUntil(this.unSubscribe$))
+      .subscribe({
+        next: () => {
+          this._router.navigate(['nav', 'projects'])
         },
         error: (err) => {
           console.log(err)
         }
       })
+  }
+
+  ngOnDestroy(): void {
+    this.unSubscribe$.next();
+    this.unSubscribe$.complete();
   }
 
 }

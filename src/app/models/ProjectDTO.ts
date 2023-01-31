@@ -1,6 +1,7 @@
 import { FormControl, FormGroup } from "@angular/forms";
 
 export class ProjectDTO {
+    id?: number;
     title!: string;
     description!: string
     constructor(projectForm:FormGroup) {

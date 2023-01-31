@@ -10,12 +10,16 @@ import {
   SeenComponent,
   TrainingsComponent,
   UpdateProjectComponent,
+  UpdatetrainingComponent,
+  UpdatevacanciesComponent,
   UserProfileComponent,
   VacanciesComponent
 } from './components';
 import { LoginGuard } from './login-guard.guard';
 import { OrderIdResolver } from './order-id.resolver';
 import { ProjectIdResolver } from './project-id.resolver';
+import { TrainingResolver } from './services/training-resolver';
+import { VacancieResolver } from './services/vacancie-resolver';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,12 +35,20 @@ const routes: Routes = [
       { path: 'vacancies', component: VacanciesComponent },
       { path: 'projects', component: ProjectsComponent },
       {
+        path:'updatevacanie/:id',component:UpdatevacanciesComponent,
+        resolve:{vacanciId:VacancieResolver}
+      },
+      {
         path:'updateProject/:id',component:UpdateProjectComponent,
         resolve:{projectId:ProjectIdResolver}
       },
       {
         path: 'seen/:id', component: SeenComponent,
         resolve: { orderID: OrderIdResolver }
+      },
+      {
+        path:'updatetraining/:id',component:UpdatetrainingComponent,
+        resolve:{trainingId:TrainingResolver}
       }
     ]
   },

@@ -1,3 +1,4 @@
+// jnjel
 export interface IWaiter{
     name:string,
     time:number,

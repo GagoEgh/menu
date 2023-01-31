@@ -1,8 +1,5 @@
 <section class="section">
     <h1>{{project.title}}</h1>
     <p appHtmlelemt [description]="project.description">{{project.description}}</p>
-    <div class="btn-group">
-        <button class="button more" [routerLink]="['/nav','updateProject', project.id]">More</button>
-        <button class="button delete" (click)="delete(project.id!)">Delete</button>
-    </div>
+    <button class="button more" [routerLink]="['/nav','updateProject', project.id]">More</button>
 </section>

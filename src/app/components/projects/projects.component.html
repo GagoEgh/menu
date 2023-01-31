@@ -1,3 +1,16 @@
 <div class="container">
-    <app-project *ngFor="let project of projects" [project]="project" (deleteProject)="changeProjects($event)"></app-project>
+    <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="input-group flex-nowrap">
+            <input type="text" class="form-control" formControlName="title" placeholder="Title"
+                aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group flex-nowrap">
+            <input type="text" class="form-control" formControlName="description" placeholder="Description"
+                aria-describedby="addon-wrapping">
+        </div>
+     
+        <button class="btn btn-success">add</button>
+    </form>
+    <app-project *ngFor="let project of projects"
+     [project]="project" ></app-project>
 </div>

@@ -1,3 +1,5 @@
+// jnjel
+
 export interface IClient{
     phone:number,
     balance:number,
