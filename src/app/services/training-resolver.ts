@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { TrainingService } from './training.service';
 
 @Injectable({
@@ -15,14 +15,12 @@ export class TrainingResolver implements Resolve<any>{
     const id = +route.paramMap.get('id')!;
 
    return this._trainingService.getTraining(id)
-   .subscribe({
-    next:(res)=>{
-      console.log(res)
-    },
-    error:(err)=>{
-      console.log(err)
-    }
-   })
+   .pipe(catchError((err)=>{
+    return err
+    return of({err:err.error.message})
+
+   }))
+ 
    
 
   }

@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { catchError, EMPTY, Observable} from 'rxjs';
 
-import { ProjectService } from './services/project.service';
+import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root'

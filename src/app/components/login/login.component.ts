@@ -5,8 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
 import { ILoginResponse } from 'src/app/models/ILoginResponse';
 import { LoginDTO } from'../../models/LoginDTO';
-;
-import { OrderService } from 'src/app/services/order.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -23,9 +22,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _orderService: OrderService
+    private _loginService: LoginService
   ) { }
-
 
   ngOnInit(): void {
     this.initForm();
@@ -38,16 +36,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
   }
 
-
   onLogin() {
     if (this.loginForm.invalid) {
       return
     }
 
     const data = new LoginDTO(this.loginForm);
-    
 
-    this._orderService.loginUser(data)
+    this._loginService.loginUser(data)
       .pipe(takeUntil(this.subject$))
       .subscribe({
         next: (res: IHttpResponse<ILoginResponse>) => {

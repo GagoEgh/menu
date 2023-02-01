@@ -5,7 +5,6 @@ import {
   LoginComponent,
   NavbarComponent,
   NewOrdersComponent,
-  ProjectComponent,
   ProjectsComponent,
   SeenComponent,
   TrainingsComponent,
@@ -16,8 +15,8 @@ import {
   VacanciesComponent
 } from './components';
 import { LoginGuard } from './login-guard.guard';
-import { OrderIdResolver } from './order-id.resolver';
-import { ProjectIdResolver } from './project-id.resolver';
+import { OrderIdResolver } from './services/order-id.resolver';
+import { ProjectIdResolver } from './services/project-id.resolver';
 import { TrainingResolver } from './services/training-resolver';
 import { VacancieResolver } from './services/vacancie-resolver';
 

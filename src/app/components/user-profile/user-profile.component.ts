@@ -16,24 +16,26 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   // this.user = JSON.parse(localStorage.getItem('user')!);
+    // this.user = JSON.parse(localStorage.getItem('user')!);
     this.formInit();
+   // this.userForm.disable()
   }
 
   formInit() {
-    // this.userForm = this._fb.group(
-    //   {
-    //     firstName:[this.user.firstName],
-    //     lastName:[this.user.lastName],
-    //     phoneNumber:[this.user.phoneNumber],
-    //     email:[this.user.email]
-    //   }
-    // )
-
-    // this.userForm.disable()
+    this.userForm = this._fb.group(
+      {
+        firstName: [''],
+        lastName: [''],
+        phoneNumber: [''],
+        email: ['']
+      }
+    )
   }
 
-  formDisabled(){
-    this.userForm.enable()
+
+  formDisabled() {
+
+    this.userForm.disable();
+
   }
 }
