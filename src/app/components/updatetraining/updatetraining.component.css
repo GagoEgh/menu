@@ -13,6 +13,9 @@
     margin: 20px 0;
 }
 
+.flex-nowrap{
+    margin: 20px 0;
+}
 .success{
     color: rgb(9, 197, 9);
     font-size: 18px;

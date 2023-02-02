@@ -15,7 +15,7 @@ export class UpdatevacanciesComponent implements OnInit,OnDestroy {
   unSubscribe$ = new Subject<void>();
   vacanci!: VacancieDTO;
   vacanciForm!:FormGroup;
-  errroreMsg!:string[];
+  errroreMsg='';
   successMsg='';
   
 
@@ -51,8 +51,9 @@ export class UpdatevacanciesComponent implements OnInit,OnDestroy {
         }, 3000)
       },
       error: (err) => {
+        this.errroreMsg = err.error.message
         setTimeout(()=>{
-          this.errroreMsg = err.error.message
+          this.errroreMsg = ''
         },3000)
       }
     })

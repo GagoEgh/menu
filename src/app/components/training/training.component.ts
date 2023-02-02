@@ -14,12 +14,9 @@ export class TrainingComponent implements OnInit {
     private _router:Router
   ) { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  updateTr(){
-
+  more(){
     this._router.navigate(['/nav','updatetraining', this.training.id])
     .catch((err)=>{
       console.log(err)

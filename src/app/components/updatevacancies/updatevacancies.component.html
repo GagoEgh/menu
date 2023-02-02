@@ -1,13 +1,11 @@
 <section class="section">
-  <button class="button delete" (click)="delete(vacanci.id!)">Delete</button>
+    <button class="button delete" (click)="delete(vacanci.id!)">Delete</button>
     <form class="form" [formGroup]="vacanciForm" (ngSubmit)="update()">
         <input type="text" formControlName="shortDescription">
         <textarea class="textarea" rows="4" cols="50" formControlName="description"></textarea>
         <button class="btn btn-success">update</button>
 
-        <p class="success">{{successMsg}}</p>
-        <ul>
-            <li class="errore" *ngFor="let err of errroreMsg">{{err}}</li>
-        </ul>
     </form>
+    <p class="success">{{successMsg}}</p>
+    <p class="errore">{{errroreMsg}}</p>
 </section>

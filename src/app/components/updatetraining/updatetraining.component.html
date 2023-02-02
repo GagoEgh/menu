@@ -1,6 +1,5 @@
 <section class="section">
-    <button class="button delete" (click)="delete()">Delete</button>
-    <!-- training.id! -->
+    <button class="button delete" (click)="delete(training.id!)">Delete</button>
     <form class="form" [formGroup]="trainingForm" (ngSubmit)="update()">
         <div class="input-group flex-nowrap">
             <input type="text" class="form-control" formControlName="name" placeholder="name"
@@ -13,7 +12,7 @@
 
         <div class="input-group flex-nowrap">
             <input type="date" class="form-control" formControlName="date" placeholder="date"
-                aria-describedby="addon-wrapping">
+               aria-describedby="addon-wrapping">
         </div>
 
         <div class="input-group flex-nowrap">
@@ -24,7 +23,9 @@
                 <input type="text" class="form-control" formControlName="type" placeholder="type"
                     aria-describedby="addon-wrapping">
             </div>
-            <button class="btn btn-success">add</button>
+            <button class="btn btn-success">update</button>
     </form>
   
+    <p class="success">{{successMsg}}</p>
+    <p class="errore">{{errroreMsg}}</p>
 </section>

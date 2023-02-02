@@ -30,7 +30,12 @@ export class TrainingService {
     return this._http.get<IHttpResponse<TrainingDTO[]>>(`${this.apiUrl}/trainings/${id}`)
   }
 
-  update(){
+  update(id:number,training:TrainingDTO):Observable<IHttpResponse<TrainingDTO[]>>{
+    return this._http.put<IHttpResponse<TrainingDTO[]>>(`${this.apiUrl}/trainings/${id}`,training)
+    
+  }
 
+  delete(id:number){
+    return this._http.delete(`${this.apiUrl}/trainings/${id}`)
   }
 }

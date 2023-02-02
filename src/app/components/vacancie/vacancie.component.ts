@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { VacancieDTO } from 'src/app/models/VacancieDTO';
 
 @Component({
@@ -9,8 +10,16 @@ import { VacancieDTO } from 'src/app/models/VacancieDTO';
 export class VacancieComponent implements OnInit {
 
   @Input()vacancie!:VacancieDTO
-  constructor() { }
+  constructor(
+    private _router:Router
+  ) { }
 
   ngOnInit(): void {}
 
+  more(){
+    this._router.navigate(['/nav','updatevacanie', this.vacancie.id])
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
 }
