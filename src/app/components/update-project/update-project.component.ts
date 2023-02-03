@@ -54,9 +54,11 @@ export class UpdateProjectComponent implements OnInit, OnDestroy {
           }, 3000)
         },
         error: (err) => {
-
-          console.log(err);
-          this.errroreMsg = err.error.message
+          this.errroreMsg = err
+          setTimeout(() => {
+            this.errroreMsg=[]
+          }, 3000)
+         
         }
       })
   }

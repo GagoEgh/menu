@@ -11,6 +11,9 @@
      
         <button class="btn btn-success">add</button>
     </form>
+    <ul class="errore">
+        <li *ngFor="let err of erroreMsg">{{err}}</li>
+    </ul>
     <app-vacancie *ngFor="let vacancie of vacancies" [vacancie]="vacancie"></app-vacancie> 
 
     

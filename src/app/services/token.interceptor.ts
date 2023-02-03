@@ -3,26 +3,39 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpContextToken,
+  HttpResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+export const IS_AUTH_NEEDED = new HttpContextToken(() => true)
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  apiUrl = environment.apiUrl;
 
   constructor() { }
 
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const jsonToken = localStorage.getItem("accessToken");
+    let headers = request.headers;
 
-    if (jsonToken) {
-
-      const newReq = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${jsonToken}`)
-      })
-      return next.handle(newReq);
+    if (request.context.get(IS_AUTH_NEEDED) === true) {
+      headers = headers.set('Authorization', `Bearer ${localStorage.getItem("accessToken")}`)
     }
-    return next.handle(request);
+
+    const newReq = request.clone({
+      url: `${this.apiUrl}${request.url}`,
+      headers: headers
+    })
+
+    return next.handle(newReq)
+      .pipe(
+        catchError((err) => {
+          throw err.error.error.message
+        })
+      )
+
   }
 }

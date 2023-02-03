@@ -16,6 +16,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   projectForm!:FormGroup
   projects!: ProjectDTO[];
   subject$ = new Subject<void>();
+  erroreMsg!:string[];
 
   constructor(
     private _projectService: ProjectService,
@@ -43,7 +44,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           this.projects = res.data;
         },
         error: (err) => {
-          console.log(err)
+          this.erroreMsg = err
+          setTimeout(() => {
+            this.erroreMsg =[]
+          }, 3000)
         }
       })
   }
@@ -58,9 +62,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     .subscribe({
       next:(res:IHttpResponse<ProjectDTO[]>)=>{
         this.projects = res.data;
+        this.projectForm.reset()
       },
       error:(err)=>{
-        console.log(err)
+        this.erroreMsg = err
       }
     })
 

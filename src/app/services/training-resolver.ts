@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { TrainingService } from './training.service';
 
 @Injectable({

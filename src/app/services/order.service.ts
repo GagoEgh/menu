@@ -3,11 +3,8 @@ import { catchError,  Observable, of, } from 'rxjs';
 import { IWaiter } from '../models/IWaiter';
 import { OrdersClass } from '../orders';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { IHttpResponse } from '../models/IHttpResponse';
-import { ILoginResponse } from '../models/ILoginResponse';
-import { LoginDTO } from '../models/LoginDTO';
 
 
 @Injectable({
@@ -15,7 +12,6 @@ import { LoginDTO } from '../models/LoginDTO';
 })
 export class OrderService {
 
-  apiUrl = environment.apiUrl;
 
   constructor(
     private _http: HttpClient

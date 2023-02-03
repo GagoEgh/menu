@@ -24,6 +24,11 @@
             </div>
             <button class="btn btn-success">add</button>
     </form>
+    <ul class="errore">
+        <li *ngFor="let msg of erroreMsg">
+            {{msg}}
+        </li>
+    </ul>
     <app-training *ngFor="let training of trainings" [training]="training">
 
     </app-training> 

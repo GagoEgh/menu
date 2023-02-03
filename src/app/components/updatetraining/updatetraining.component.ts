@@ -12,7 +12,7 @@ import { TrainingService } from 'src/app/services/training.service';
 export class UpdatetrainingComponent implements OnInit {
   trainingForm!:FormGroup;
   training!:TrainingDTO;
-  errroreMsg='';
+  errroreMsg!:string[];
   successMsg='';
   constructor(
     private _fb:FormBuilder,
@@ -44,7 +44,10 @@ export class UpdatetrainingComponent implements OnInit {
         this._router.navigate(['nav', 'trainings'])
       },
       error:(err)=>{
-        console.log(err)
+        this.errroreMsg = err
+        setTimeout(() => {
+          this.errroreMsg =[]
+        }, 3000)
       }
     })
   }
@@ -61,9 +64,9 @@ export class UpdatetrainingComponent implements OnInit {
           }, 3000)
         },
         error: (err) => {
-          this.errroreMsg = err.error.message
+          this.errroreMsg = err
           setTimeout(()=>{
-            this.errroreMsg=''
+            this.errroreMsg=[]
             
           },3000)
         }

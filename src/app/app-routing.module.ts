@@ -34,11 +34,11 @@ const routes: Routes = [
       { path: 'vacancies', component: VacanciesComponent },
       { path: 'projects', component: ProjectsComponent },
       {
-        path:'updatevacanie/:id',component:UpdatevacanciesComponent,
+        path:'vacancies/updatevacanie/:id',component:UpdatevacanciesComponent,
         resolve:{vacanciId:VacancieResolver}
       },
       {
-        path:'updateProject/:id',component:UpdateProjectComponent,
+        path:'projects/updateProject/:id',component:UpdateProjectComponent,
         resolve:{projectId:ProjectIdResolver}
       },
       {
@@ -46,7 +46,7 @@ const routes: Routes = [
         resolve: { orderID: OrderIdResolver }
       },
       {
-        path:'updatetraining/:id',component:UpdatetrainingComponent,
+        path:'trainings/updatetraining/:id',component:UpdatetrainingComponent,
         resolve:{trainingId:TrainingResolver}
       }
     ]

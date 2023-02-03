@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
-// import { IUser } from 'src/app/models/IUser';
+import { Router } from '@angular/router';
+import { IUser } from 'src/app/models/IUser';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,19 +10,22 @@ import { Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  // user!:IUser;
-  isUserProfile = false
+  isUserProfile = false;
+  user!: IUser
   constructor(
-    private _router:Router
+    private _router: Router,
+    private _loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-    // this.user = JSON.parse(localStorage.getItem('user')!)
+    setTimeout(()=>{
+      this.user = this._loginService.user;
+    },300)
+    
   }
- 
-  logout(){
-    localStorage.removeItem('user');
-    localStorage.removeItem('tocken');
+
+  logout() {
+    localStorage.removeItem('accessToken');
     this._router.navigate(['']);
   }
 

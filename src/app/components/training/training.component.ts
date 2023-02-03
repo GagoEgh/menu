@@ -8,16 +8,16 @@ import { TrainingDTO } from 'src/app/models/TrainingDTO';
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
-
-  @Input()training!:TrainingDTO
+  
+  @Input()training!:TrainingDTO;
   constructor(
     private _router:Router
   ) { }
-
+  
   ngOnInit(): void {}
 
   more(){
-    this._router.navigate(['/nav','updatetraining', this.training.id])
+    this._router.navigate(['/nav/trainings','updatetraining', this.training.id])
     .catch((err)=>{
       console.log(err)
     })

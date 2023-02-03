@@ -20,13 +20,6 @@
     margin-top: 20px;
 }
 
-.errore{
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: tomato;
-    list-style: none;
-}
-
 .button{
     cursor: pointer;
     width: 120px;

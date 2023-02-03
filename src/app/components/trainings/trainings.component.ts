@@ -15,6 +15,7 @@ export class TrainingsComponent implements OnInit, OnDestroy {
   unSubscribe$ = new Subject<void>()
   trainingForm!:FormGroup;
   trainings!:TrainingDTO[];
+  erroreMsg!:string[]
   constructor(
     private _trainingService:TrainingService,
     private _fb:FormBuilder
@@ -43,10 +44,12 @@ export class TrainingsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unSubscribe$))
     .subscribe({
       next:(res:IHttpResponse<TrainingDTO[]>)=>{
-        this.trainings = res.data
+        this.trainings = res.data;
+        this.erroreMsg=[];
       },
-      error:(err)=>{
-        console.log(err)
+      error:(err:string[])=>{
+        this.erroreMsg = err
+
       }
     })
   }
@@ -57,7 +60,14 @@ export class TrainingsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unSubscribe$))
     .subscribe({
       next:(res:IHttpResponse<TrainingDTO[]>)=>{
-        this.trainings = res.data
+        this.trainings = res.data;
+        this.erroreMsg=[];
+      },
+      error:(err:string[])=>{
+        this.erroreMsg = err
+        setTimeout(() => {
+          this.erroreMsg =[]
+        }, 3000)
       }
     })
   }

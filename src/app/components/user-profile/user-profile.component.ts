@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-// import { IUser } from 'src/app/models/IUser';
+import { IUser } from 'src/app/models/IUser';
+import { LoginService } from 'src/app/services/login.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -9,33 +11,30 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class UserProfileComponent implements OnInit {
 
-  // user!: IUser;
+  user!: IUser;
   userForm!: FormGroup
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-    // this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user = this._loginService.user;
     this.formInit();
-   // this.userForm.disable()
   }
 
   formInit() {
     this.userForm = this._fb.group(
       {
-        firstName: [''],
-        lastName: [''],
-        phoneNumber: [''],
-        email: ['']
+        firstName: [this.user.firstName],
+        lastName: [this.user.lastName],
+        email: [this.user.email]
       }
     )
   }
 
 
   formDisabled() {
-
     this.userForm.disable();
-
   }
 }

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { IHttpResponse } from '../models/IHttpResponse';
 import { TrainingDTO } from '../models/TrainingDTO';
 
@@ -9,33 +8,32 @@ import { TrainingDTO } from '../models/TrainingDTO';
   providedIn: 'root'
 })
 export class TrainingService {
-  apiUrl = environment.apiUrl;
 
   constructor(
     private _http: HttpClient
   ) { }
 
   postTraining(training:TrainingDTO) {
-    return this._http.post(`${this.apiUrl}/trainings`, training)
+    return this._http.post(`/trainings`, training)
     .pipe(switchMap(()=>{
       return this.getTrainingAll()
     }))
   }
 
   getTrainingAll():Observable<IHttpResponse<TrainingDTO[]>>{
-    return this._http.get<IHttpResponse<TrainingDTO[]>>(`${this.apiUrl}/trainings`)
+    return this._http.get<IHttpResponse<TrainingDTO[]>>(`/trainings`)
   }
 
   getTraining(id:number):Observable<IHttpResponse<TrainingDTO[]>>{
-    return this._http.get<IHttpResponse<TrainingDTO[]>>(`${this.apiUrl}/trainings/${id}`)
+    return this._http.get<IHttpResponse<TrainingDTO[]>>(`/trainings/${id}`)
   }
 
   update(id:number,training:TrainingDTO):Observable<IHttpResponse<TrainingDTO[]>>{
-    return this._http.put<IHttpResponse<TrainingDTO[]>>(`${this.apiUrl}/trainings/${id}`,training)
+    return this._http.put<IHttpResponse<TrainingDTO[]>>(`/trainings/${id}`,training)
     
   }
 
   delete(id:number){
-    return this._http.delete(`${this.apiUrl}/trainings/${id}`)
+    return this._http.delete(`/trainings/${id}`)
   }
 }

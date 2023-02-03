@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
 import { ILoginResponse } from 'src/app/models/ILoginResponse';
-import { LoginDTO } from'../../models/LoginDTO';
+import { LoginDTO } from '../../models/LoginDTO';
 import { LoginService } from 'src/app/services/login.service';
 
 
@@ -53,6 +53,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: (err: string[]) => {
           this.httpErroeMessages = err;
+          setTimeout(() => {
+            this.httpErroeMessages = []
+          }, 3000)
+         
         }
       })
 

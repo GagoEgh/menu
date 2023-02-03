@@ -15,7 +15,7 @@ export class UpdatevacanciesComponent implements OnInit,OnDestroy {
   unSubscribe$ = new Subject<void>();
   vacanci!: VacancieDTO;
   vacanciForm!:FormGroup;
-  errroreMsg='';
+  errroreMsg!:string;
   successMsg='';
   
 
@@ -51,7 +51,7 @@ export class UpdatevacanciesComponent implements OnInit,OnDestroy {
         }, 3000)
       },
       error: (err) => {
-        this.errroreMsg = err.error.message
+        this.errroreMsg = err
         setTimeout(()=>{
           this.errroreMsg = ''
         },3000)
@@ -67,7 +67,10 @@ export class UpdatevacanciesComponent implements OnInit,OnDestroy {
         this._router.navigate(['nav', 'vacancies'])
       },
       error:(err)=>{
-        console.log(err)
+        this.errroreMsg = err
+        setTimeout(()=>{
+          this.errroreMsg = ''
+        },3000)
       }
     })
   }

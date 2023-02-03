@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { IUser } from 'src/app/models/IUser';
 import { IWaiter } from 'src/app/models/IWaiter';
 import { OrdersClass } from 'src/app/orders'
 

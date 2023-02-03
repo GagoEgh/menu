@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+.errore{
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: tomato;
+    list-style: none;
+}

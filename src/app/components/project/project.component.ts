@@ -17,7 +17,7 @@ export class ProjectComponent  {
   ) {}
 
   more(){
-    this._router.navigate(['/nav','updateProject',this.project.id])
+    this._router.navigate(['/nav/projects','updateProject',this.project.id])
     .catch((err)=>{
       console.log(err)
     })

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { IHttpResponse } from '../models/IHttpResponse';
 import { ProjectDTO } from '../models/ProjectDTO';
 
@@ -13,14 +12,14 @@ import { ProjectDTO } from '../models/ProjectDTO';
 )
 export class ProjectService {
 
-  apiUrl = environment.apiUrl;
   constructor(
     private _http: HttpClient
   ) { }
 
 
+  // ????? tal object
   postProjects(): Observable<IHttpResponse<ProjectDTO[]>> {
-    return this._http.post<IHttpResponse<ProjectDTO[]>>(`${this.apiUrl}/projects/`, {
+    return this._http.post<IHttpResponse<ProjectDTO[]>>(`/projects/`, {
       "title": "test",
       "description": "<b>strong_updated<b>strong_updated</b><b>strong_updated</b></b><b>strong_updated</b>v "
     })
@@ -28,27 +27,27 @@ export class ProjectService {
   }
 
   postProject(project:ProjectDTO): Observable<IHttpResponse<ProjectDTO[]>> {
-    return this._http.post<IHttpResponse<ProjectDTO[]>>(`${this.apiUrl}/projects`,project)
+    return this._http.post<IHttpResponse<ProjectDTO[]>>(`/projects`,project)
     .pipe(switchMap(()=>{
       return this.getProjectsAll()
     }))
   }
 
   getProjectsAll(): Observable<IHttpResponse<ProjectDTO[]>> {
-    return this._http.get<IHttpResponse<ProjectDTO[]>>(`${this.apiUrl}/projects/all`)
+    return this._http.get<IHttpResponse<ProjectDTO[]>>(`/projects/all`)
   }
 
   getProjectById(id: number): Observable<IHttpResponse<ProjectDTO>> {
-    return this._http.get<IHttpResponse<ProjectDTO>>(`${this.apiUrl}/projects/${id}`)
+    return this._http.get<IHttpResponse<ProjectDTO>>(`/projects/${id}`)
   }
 
   putProject(id: number, project: ProjectDTO) {
-    return this._http.put<IHttpResponse<ProjectDTO>>(`${this.apiUrl}/projects/${id}`, project)
+    return this._http.put<IHttpResponse<ProjectDTO>>(`/projects/${id}`, project)
 
   }
 
   deleteProject(id: number) {
-    return this._http.delete(`${this.apiUrl}/projects/${id}`)
+    return this._http.delete(`/projects/${id}`)
       .pipe(switchMap(() => {
         return this.getProjectsAll()
       }))
