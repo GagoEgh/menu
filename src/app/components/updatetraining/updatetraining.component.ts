@@ -10,67 +10,73 @@ import { TrainingService } from 'src/app/services/training.service';
   styleUrls: ['./updatetraining.component.css']
 })
 export class UpdatetrainingComponent implements OnInit {
-  trainingForm!:FormGroup;
-  training!:TrainingDTO;
-  errroreMsg!:string[];
-  successMsg='';
+  trainingForm!: FormGroup;
+  training!: TrainingDTO;
+  errroreMsg!: string[];
+  successMsg = '';
   constructor(
-    private _fb:FormBuilder,
+    private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
-    private _trainingService:TrainingService,
-    private _router:Router
+    private _trainingService: TrainingService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
+
     this.training = this._activatedRoute.snapshot.data['trainingId'].data;
     this.initTrainingForm()
   }
 
 
-  initTrainingForm(){
+  initTrainingForm() {
     this.trainingForm = this._fb.group({
-      name: [this.training.name,[Validators.required]],
-      description: [this.training.description,[Validators.required]],
-      date: [this.training.date,[Validators.required]],//?
-      image: [this.training.image,[Validators.required]],//?
-      type:[this.training.type,[Validators.required]],
+      name: [this.training.name, [Validators.required]],
+      description: [this.training.description, [Validators.required]],
+      date: [this.training.date, [Validators.required]],//?
+      image: ['', [Validators.required]],//?
+      type: [this.training.type, [Validators.required]],
     })
   }
 
-  delete(id:number){
+  delete(id: number) {
     this._trainingService.delete(id)
-    .subscribe({
-      next:()=>{
-        this._router.navigate(['nav', 'trainings'])
-      },
-      error:(err)=>{
-        this.errroreMsg = err
-        setTimeout(() => {
-          this.errroreMsg =[]
-        }, 3000)
-      }
-    })
-  }
-
-  update(){
-    const trainigDTO = new TrainingDTO(this.trainingForm);
-    this._trainingService.update(this.training.id!,trainigDTO)
-    .subscribe(
-      {
+      .subscribe({
         next: () => {
-          this.successMsg = 'update is successful'
-          setTimeout(() => {
-            this.successMsg = ''
-          }, 3000)
+          this._router.navigate(['nav', 'trainings'])
         },
         error: (err) => {
           this.errroreMsg = err
-          setTimeout(()=>{
-            this.errroreMsg=[]
-            
-          },3000)
+          setTimeout(() => {
+            this.errroreMsg = []
+          }, 3000)
         }
-      }
-    )
+      })
+  }
+
+  updateFIle(event: any) {
+   this.trainingForm.get('image')?.setValue(event.target.files[0])
+  }
+
+  update() {
+
+    const formData = this._trainingService.createFormData(this.trainingForm);
+    this._trainingService.update(this.training.id!, formData)
+      .subscribe(
+        {
+          next: () => {
+            this.successMsg = 'update is successful'
+            setTimeout(() => {
+              this.successMsg = ''
+            }, 3000)
+          },
+          error: (err) => {
+            this.errroreMsg = err
+            setTimeout(() => {
+              this.errroreMsg = []
+
+            }, 3000)
+          }
+        }
+      )
   }
 }

@@ -16,7 +16,8 @@
         </div>
 
         <div class="input-group flex-nowrap">
-            <input type="file" class="form-control" formControlName="image" id="inputGroupFile04"
+            <input type="file" class="form-control" formControlName="image"
+             id="inputGroupFile04" (change)="updateFIle($event)"
                 aria-describedby="inputGroupFileAddon04" aria-label="Upload">
         </div>
             <div class="input-group flex-nowrap">

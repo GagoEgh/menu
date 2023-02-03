@@ -16,13 +16,13 @@
 
         <div class="input-group flex-nowrap">
             <input type="file" class="form-control" formControlName="image" id="inputGroupFile04"
-                aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                (change)="updateFIle($event)" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
         </div>
-            <div class="input-group flex-nowrap">
-                <input type="text" class="form-control" formControlName="type" placeholder="type"
-                    aria-describedby="addon-wrapping">
-            </div>
-            <button class="btn btn-success">add</button>
+        <div class="input-group flex-nowrap">
+            <input type="text" class="form-control" formControlName="type" placeholder="type"
+                aria-describedby="addon-wrapping">
+        </div>
+        <button class="btn btn-success">add</button>
     </form>
     <ul class="errore">
         <li *ngFor="let msg of erroreMsg">
@@ -31,7 +31,7 @@
     </ul>
     <app-training *ngFor="let training of trainings" [training]="training">
 
-    </app-training> 
+    </app-training>
 
 
 </div>
