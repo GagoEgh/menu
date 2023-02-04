@@ -4,12 +4,12 @@ export class TrainingDTO{
     name!: string
     description!: string;
     date!: Date
-    image!: any//FormData
+    image!: FormData
     type!: string
-    createdAt?:any//string
-    id?:any//number
+    createdAt?:string
+    id?:number
     mediaFiles?:any
-    updatedAt?:any//string
+    updatedAt?:string
 
 
 

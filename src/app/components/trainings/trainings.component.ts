@@ -1,4 +1,3 @@
-import { HtmlParser } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -70,9 +69,9 @@ export class TrainingsComponent implements OnInit, OnDestroy {
       })
   }
 
-  updateFIle(event:any) {
-
-    this.trainingForm.get('image')?.setValue(event.target.files[0])
+  updateFIle(event:Event) {
+    const file = (event.target as HTMLInputElement).files![0]
+    this.trainingForm.get('image')?.setValue(file)
   }
 
   ngOnDestroy(): void {

@@ -4,9 +4,7 @@ import {
   DashboardsComponent,
   LoginComponent,
   NavbarComponent,
-  NewOrdersComponent,
   ProjectsComponent,
-  SeenComponent,
   TrainingsComponent,
   UpdateProjectComponent,
   UpdatetrainingComponent,
@@ -15,7 +13,6 @@ import {
   VacanciesComponent
 } from './components';
 import { LoginGuard } from './login-guard.guard';
-import { OrderIdResolver } from './services/order-id.resolver';
 import { ProjectIdResolver } from './services/project-id.resolver';
 import { TrainingResolver } from './services/training-resolver';
 import { VacancieResolver } from './services/vacancie-resolver';
@@ -28,7 +25,6 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboards', pathMatch: 'full' },
       { path: 'dashboards', component: DashboardsComponent, },
-      { path: 'new-orders', component: NewOrdersComponent },
       { path: 'profile', component: UserProfileComponent },
       { path: 'trainings', component: TrainingsComponent },
       { path: 'vacancies', component: VacanciesComponent },
@@ -40,10 +36,6 @@ const routes: Routes = [
       {
         path:'projects/updateProject/:id',component:UpdateProjectComponent,
         resolve:{projectId:ProjectIdResolver}
-      },
-      {
-        path: 'seen/:id', component: SeenComponent,
-        resolve: { orderID: OrderIdResolver }
       },
       {
         path:'trainings/updatetraining/:id',component:UpdatetrainingComponent,

@@ -53,8 +53,9 @@ export class UpdatetrainingComponent implements OnInit {
       })
   }
 
-  updateFIle(event: any) {
-   this.trainingForm.get('image')?.setValue(event.target.files[0])
+  updateFIle(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0]
+    this.trainingForm.get('image')?.setValue(file);
   }
 
   update() {
@@ -74,7 +75,7 @@ export class UpdatetrainingComponent implements OnInit {
             setTimeout(() => {
               this.errroreMsg = []
 
-            }, 3000)
+            }, 5000)
           }
         }
       )
