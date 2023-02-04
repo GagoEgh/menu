@@ -5,21 +5,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
-  DashboardsComponent,
+
   LoginComponent,
-  NavbarComponent,
   ProjectComponent,
   ProjectsComponent,
-  TrainingComponent,
-  TrainingsComponent,
   UpdateProjectComponent,
   UpdatevacanciesComponent,
-  UserProfileComponent,
   VacancieComponent,
   VacanciesComponent,
-  UpdatetrainingComponent
+
 } from './components';
-import { TokenInterceptor } from './services/token.interceptor';
+import { MainInterceptor } from './services/main.interceptor';
 import { HtmlelemtDirective } from './htmlelemt.directive';
 
 
@@ -29,10 +25,8 @@ import { HtmlelemtDirective } from './htmlelemt.directive';
 const components = [
   AppComponent,
   LoginComponent,
-  DashboardsComponent,
-  NavbarComponent,
-  UserProfileComponent,
-  TrainingsComponent,
+
+ 
   VacanciesComponent,
   ProjectsComponent,
   ProjectComponent,
@@ -40,8 +34,7 @@ const components = [
   VacancieComponent,
   VacanciesComponent,
   UpdatevacanciesComponent,
-  TrainingComponent,
-  UpdatetrainingComponent
+ 
 ]
 
 
@@ -63,7 +56,7 @@ const components = [
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: MainInterceptor,
       multi: true
     },
 

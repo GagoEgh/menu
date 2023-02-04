@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
 import { TrainingDTO } from 'src/app/models/TrainingDTO';
-import { TrainingService } from 'src/app/services/training.service';
+import { TrainingService } from 'src/app/lazyModules/trainings/training.service';
 
 @Component({
   selector: 'app-trainings',
@@ -51,6 +51,11 @@ export class TrainingsComponent implements OnInit, OnDestroy {
       })
   }
 
+  updateFIle(event:Event) {
+    const file = (event.target as HTMLInputElement).files![0]
+    this.trainingForm.get('image')?.setValue(file)
+  }
+  
   onSubmit() {
 
     const formData = this._trainingService.createFormData(this.trainingForm);
@@ -69,10 +74,7 @@ export class TrainingsComponent implements OnInit, OnDestroy {
       })
   }
 
-  updateFIle(event:Event) {
-    const file = (event.target as HTMLInputElement).files![0]
-    this.trainingForm.get('image')?.setValue(file)
-  }
+
 
   ngOnDestroy(): void {
     this.unSubscribe$.next();

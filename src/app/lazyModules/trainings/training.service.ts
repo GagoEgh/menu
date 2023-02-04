@@ -1,10 +1,9 @@
-import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, switchMap } from 'rxjs';
-import { IHttpResponse } from '../models/IHttpResponse';
-import { TrainingDTO } from '../models/TrainingDTO';
-import { IS_CONTENT_TYPE } from './token.interceptor';
+import { IHttpResponse } from '../../models/IHttpResponse';
+import { TrainingDTO } from '../../models/TrainingDTO';
 
 
 @Injectable({
@@ -17,10 +16,7 @@ export class TrainingService {
   ) { }
 
   postTraining(training: FormData): Observable<IHttpResponse<TrainingDTO[]>> {
-    return this._http.post<IHttpResponse<TrainingDTO[]>>(`/trainings`, training,
-      {
-        context: new HttpContext().set(IS_CONTENT_TYPE, true)
-      })
+    return this._http.post<IHttpResponse<TrainingDTO[]>>(`/trainings`, training)
       .pipe(switchMap(() => {
         return this.getTrainingAll()
       }))
@@ -35,8 +31,7 @@ export class TrainingService {
   }
 
   update(id: number, training: FormData): Observable<IHttpResponse<TrainingDTO[]>> {
-    return this._http.put<IHttpResponse<TrainingDTO[]>>(`/trainings/${id}`, training,
-      { context: new HttpContext().set(IS_CONTENT_TYPE, true) }
+    return this._http.put<IHttpResponse<TrainingDTO[]>>(`/trainings/${id}`, training
     )
 
   }
@@ -47,7 +42,8 @@ export class TrainingService {
 
   createFormData(form: FormGroup) {
     let formData = new FormData();
-    formData.append('image', form.get('image')?.value);
+    console.log(form.get('image')?.value)
+    formData.append('image', form.get('image')?.value,form.get('image')?.value.name);
     formData.append('name', form.get('name')?.value);
     formData.append('description', form.get('description')?.value);
     formData.append('date', form.get('date')?.value);

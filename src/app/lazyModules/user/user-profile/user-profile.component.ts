@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IUser } from 'src/app/models/IUser';
 import { LoginService } from 'src/app/services/login.service';
@@ -9,7 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, AfterViewChecked {
 
   user!: IUser;
   userForm!: FormGroup
@@ -19,6 +19,13 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.user = this._loginService.user;
+    this.formInit();
+  }
+
+  ngAfterViewChecked(): void {
+    //  ?? opdatei jamana useri tvjalnery kkorin
     this.user = this._loginService.user;
     this.formInit();
   }
@@ -26,13 +33,12 @@ export class UserProfileComponent implements OnInit {
   formInit() {
     this.userForm = this._fb.group(
       {
-        firstName: [this.user.firstName],
-        lastName: [this.user.lastName],
-        email: [this.user.email]
+        firstName: [this.user?.firstName],
+        lastName: [this.user?.lastName],
+        email: [this.user?.email]
       }
     )
   }
-
 
   formDisabled() {
     this.userForm.disable();

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrainingDTO } from 'src/app/models/TrainingDTO';
-import { TrainingService } from 'src/app/services/training.service';
+import { TrainingService } from 'src/app/lazyModules/trainings/training.service';
 
 @Component({
   selector: 'app-updatetraining',
@@ -30,11 +30,11 @@ export class UpdatetrainingComponent implements OnInit {
 
   initTrainingForm() {
     this.trainingForm = this._fb.group({
-      name: [this.training.name, [Validators.required]],
-      description: [this.training.description, [Validators.required]],
-      date: [this.training.date, [Validators.required]],//?
+      name: [this.training?.name, [Validators.required]],
+      description: [this.training?.description, [Validators.required]],
+      date: [this.training?.date, [Validators.required]],//?
       image: ['', [Validators.required]],//?
-      type: [this.training.type, [Validators.required]],
+      type: [this.training?.type, [Validators.required]],
     })
   }
 

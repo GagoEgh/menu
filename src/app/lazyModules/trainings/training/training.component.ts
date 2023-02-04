@@ -17,7 +17,7 @@ export class TrainingComponent implements OnInit {
   ngOnInit(): void {}
 
   more(){
-    this._router.navigate(['/nav/trainings','updatetraining', this.training.id])
+    this._router.navigate(['nav', 'trainings','updatetraining', this.training.id])
     .catch((err)=>{
       console.log(err)
     })

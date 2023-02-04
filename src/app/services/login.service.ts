@@ -5,7 +5,7 @@ import { IHttpResponse } from '../models/IHttpResponse';
 import { ILoginResponse } from '../models/ILoginResponse';
 import { IUser } from '../models/IUser';
 import { LoginDTO } from '../models/LoginDTO';
-import { IS_AUTH_NEEDED} from './token.interceptor'
+import { IS_AUTH_NEEDED} from './main.interceptor'
 
 
 @Injectable({
