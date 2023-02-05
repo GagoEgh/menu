@@ -29,9 +29,12 @@
             {{msg}}
         </li>
     </ul>
-    <app-training *ngFor="let training of trainings" [training]="training">
 
-    </app-training>
+
+    <div class="wrap">
+        <app-training *ngFor="let training of trainings" [training]="training"></app-training>
+    </div>
+
 
 
 </div>

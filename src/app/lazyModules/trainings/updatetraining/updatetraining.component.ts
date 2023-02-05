@@ -24,7 +24,8 @@ export class UpdatetrainingComponent implements OnInit {
   ngOnInit(): void {
 
     this.training = this._activatedRoute.snapshot.data['trainingId'].data;
-    this.initTrainingForm()
+    this.initTrainingForm();
+    console.log(this.training)
   }
 
 
@@ -59,8 +60,10 @@ export class UpdatetrainingComponent implements OnInit {
   }
 
   update() {
-
+    
     const formData = this._trainingService.createFormData(this.trainingForm);
+    console.log(this.training);
+    console.log(formData)
     this._trainingService.update(this.training.id!, formData)
       .subscribe(
         {

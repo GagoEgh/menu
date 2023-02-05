@@ -1,20 +1,22 @@
 <div class="container">
-    <form class="form" [formGroup]="vacancieForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
         <div class="input-group flex-nowrap">
-            <input type="text" class="form-control" formControlName="shortDescription" placeholder="ShortDescription"
+            <input type="text" class="form-control" formControlName="title" placeholder="Title"
                 aria-describedby="addon-wrapping">
         </div>
         <div class="input-group flex-nowrap">
             <input type="text" class="form-control" formControlName="description" placeholder="Description"
                 aria-describedby="addon-wrapping">
         </div>
-     
+
         <button class="btn btn-success">add</button>
     </form>
-    <ul class="errore">
-        <li *ngFor="let err of erroreMsg">{{err}}</li>
+    <ul>
+        <li class="errore" *ngFor="let err of erroreMsg">
+            {{err}}
+        </li>
     </ul>
-    <app-vacancie *ngFor="let vacancie of vacancies" [vacancie]="vacancie"></app-vacancie> 
-
-    
+    <div class="wrap">
+        <app-project *ngFor="let project of projects" [project]="project"></app-project>
+    </div>
 </div>

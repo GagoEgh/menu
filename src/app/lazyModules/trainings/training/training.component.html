@@ -1,7 +1,10 @@
-<section class="section">
-    <h1>{{training.name}}</h1>
-    <p>{{training.description}}</p>
+<!-- <img [src]="training.mediaFiles.path"> -->
 
-    <button class="button more"(click)='more()'>More</button>
-    
-</section>
+<div class="card" style="width: 18rem;">
+    <img  class="card-img-top" alt="...">
+    <div class="card-body">
+        <h3 class="card-title">{{training.name}}</h3>
+        <p class="card-text">{{training.description}}</p>
+        <button class="btn btn-primary" (click)='more()'>More</button>
+    </div>
+</div>

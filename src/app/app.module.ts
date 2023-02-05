@@ -4,47 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-
-  LoginComponent,
-  ProjectComponent,
-  ProjectsComponent,
-  UpdateProjectComponent,
-  UpdatevacanciesComponent,
-  VacancieComponent,
-  VacanciesComponent,
-
-} from './components';
 import { MainInterceptor } from './services/main.interceptor';
-import { HtmlelemtDirective } from './htmlelemt.directive';
-
-
-
-
-
-const components = [
-  AppComponent,
-  LoginComponent,
-
- 
-  VacanciesComponent,
-  ProjectsComponent,
-  ProjectComponent,
-  UpdateProjectComponent,
-  VacancieComponent,
-  VacanciesComponent,
-  UpdatevacanciesComponent,
- 
-]
-
+import { LoginComponent } from './components/login/login.component';
 
 
 
 
 @NgModule({
   declarations: [
-    ...components,
-    HtmlelemtDirective,
+    AppComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +28,6 @@ const components = [
       useClass: MainInterceptor,
       multi: true
     },
-
-
   ],
   bootstrap: [AppComponent]
 })

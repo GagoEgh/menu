@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { VacancieDTO } from 'src/app/models/VacancieDTO';
-import { VacanciesService } from 'src/app/services/vacancies.service';
+import { VacanciesService } from 'src/app/lazyModules/vacancies/vacancies.service';
 
 @Component({
   selector: 'app-updatevacancies',

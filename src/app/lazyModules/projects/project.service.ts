@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
-import { IHttpResponse } from '../models/IHttpResponse';
-import { ProjectDTO } from '../models/ProjectDTO';
+import { IHttpResponse } from '../../models/IHttpResponse';
+import { ProjectDTO } from '../../models/ProjectDTO';
+
 
 
 @Injectable(
@@ -16,21 +17,11 @@ export class ProjectService {
     private _http: HttpClient
   ) { }
 
-
-  // ????? tal object
-  postProjects(): Observable<IHttpResponse<ProjectDTO[]>> {
-    return this._http.post<IHttpResponse<ProjectDTO[]>>(`/projects/`, {
-      "title": "test",
-      "description": "<b>strong_updated<b>strong_updated</b><b>strong_updated</b></b><b>strong_updated</b>v "
-    })
-
-  }
-
-  postProject(project:ProjectDTO): Observable<IHttpResponse<ProjectDTO[]>> {
-    return this._http.post<IHttpResponse<ProjectDTO[]>>(`/projects`,project)
-    .pipe(switchMap(()=>{
-      return this.getProjectsAll()
-    }))
+  postProject(project: ProjectDTO): Observable<IHttpResponse<ProjectDTO[]>> {
+    return this._http.post<IHttpResponse<ProjectDTO[]>>(`/projects`, project)
+      .pipe(switchMap(() => {
+        return this.getProjectsAll()
+      }))
   }
 
   getProjectsAll(): Observable<IHttpResponse<ProjectDTO[]>> {

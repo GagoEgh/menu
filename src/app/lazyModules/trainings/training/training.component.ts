@@ -14,7 +14,11 @@ export class TrainingComponent implements OnInit {
     private _router:Router
   ) { }
   
-  ngOnInit(): void {}
+  
+  ngOnInit(): void {
+    console.log(this.training);
+  
+  }
 
   more(){
     this._router.navigate(['nav', 'trainings','updatetraining', this.training.id])

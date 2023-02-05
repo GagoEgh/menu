@@ -24,6 +24,7 @@ export class TrainingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initTrainingForm()
     this.getTrainings();
+  
   }
 
   initTrainingForm() {

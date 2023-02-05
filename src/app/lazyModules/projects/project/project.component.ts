@@ -8,7 +8,7 @@ import { ProjectDTO } from 'src/app/models/ProjectDTO';
   styleUrls: ['./project.component.css'],
   
 })
-export class ProjectComponent  {
+export class ProjectComponent   {
 
   @Input() project!: ProjectDTO;
 
@@ -16,8 +16,9 @@ export class ProjectComponent  {
     private _router:Router
   ) {}
 
+
   more(){
-    this._router.navigate(['/nav/projects','updateProject',this.project.id])
+    this._router.navigate(['nav','projects','updateProject',this.project.id])
     .catch((err)=>{
       console.log(err)
     })

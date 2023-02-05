@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { IHttpResponse } from '../models/IHttpResponse';
-import { VacancieDTO } from '../models/VacancieDTO';
+import { IHttpResponse } from '../../models/IHttpResponse';
+import { VacancieDTO } from '../../models/VacancieDTO';
 import { VacanciesService } from './vacancies.service';
 
 @Injectable({

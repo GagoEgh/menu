@@ -42,7 +42,7 @@ export class TrainingService {
 
   createFormData(form: FormGroup) {
     let formData = new FormData();
-    console.log(form.get('image')?.value)
+ 
     formData.append('image', form.get('image')?.value,form.get('image')?.value.name);
     formData.append('name', form.get('name')?.value);
     formData.append('description', form.get('description')?.value);

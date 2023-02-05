@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
-import { IHttpResponse } from '../models/IHttpResponse';
-import { VacancieDTO } from '../models/VacancieDTO';
+import { IHttpResponse } from '../../models/IHttpResponse';
+import { VacancieDTO } from '../../models/VacancieDTO';
 
 @Injectable({
   providedIn: 'root'

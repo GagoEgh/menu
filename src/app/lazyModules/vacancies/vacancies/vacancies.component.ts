@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
 import { VacancieDTO } from 'src/app/models/VacancieDTO';
-import { VacanciesService } from 'src/app/services/vacancies.service';
+import { VacanciesService } from 'src/app/lazyModules/vacancies/vacancies.service';
 
 @Component({
   selector: 'app-vacancies',

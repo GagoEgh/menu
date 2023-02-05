@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ProjectDTO } from 'src/app/models/ProjectDTO';
-import { ProjectService } from 'src/app/services/project.service';
+import { ProjectService } from 'src/app/lazyModules/projects/project.service';
 
 @Component({
   selector: 'app-update-project',
   templateUrl: './update-project.component.html',
   styleUrls: ['./update-project.component.css'],
+
 })
 export class UpdateProjectComponent implements OnInit, OnDestroy {
 
