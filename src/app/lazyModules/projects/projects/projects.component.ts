@@ -59,6 +59,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
     const projectDTO = new ProjectDTO(this.projectForm)
     this._projectService.postProject(projectDTO)
+    .pipe(takeUntil(this.subject$))
     .subscribe({
       next:(res:IHttpResponse<ProjectDTO[]>)=>{
         this.projects = res.data.reverse();

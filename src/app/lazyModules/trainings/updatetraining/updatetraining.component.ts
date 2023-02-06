@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrainingDTO } from 'src/app/models/TrainingDTO';
 import { TrainingService } from 'src/app/lazyModules/trainings/training.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-updatetraining',
   templateUrl: './updatetraining.component.html',
   styleUrls: ['./updatetraining.component.css']
 })
-export class UpdatetrainingComponent implements OnInit {
+export class UpdatetrainingComponent implements OnInit,OnDestroy {
+  unsubscribe$ = new Subject<void>()
   trainingForm!: FormGroup;
   training!: TrainingDTO;
   errroreMsg!: string[];
@@ -21,11 +23,10 @@ export class UpdatetrainingComponent implements OnInit {
     private _router: Router
   ) { }
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.training = this._activatedRoute.snapshot.data['trainingId'].data;
     this.initTrainingForm();
-    console.log(this.training)
   }
 
 
@@ -41,6 +42,7 @@ export class UpdatetrainingComponent implements OnInit {
 
   delete(id: number) {
     this._trainingService.delete(id)
+    .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
           this._router.navigate(['nav', 'trainings'])
@@ -60,11 +62,9 @@ export class UpdatetrainingComponent implements OnInit {
   }
 
   update() {
-    
     const formData = this._trainingService.createFormData(this.trainingForm);
-    console.log(this.training);
-    console.log(formData)
     this._trainingService.update(this.training.id!, formData)
+    .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         {
           next: () => {
@@ -82,5 +82,10 @@ export class UpdatetrainingComponent implements OnInit {
           }
         }
       )
+  }
+
+  ngOnDestroy(): void {
+   this.unsubscribe$.next();
+   this.unsubscribe$.complete()
   }
 }
