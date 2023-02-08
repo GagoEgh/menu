@@ -1,21 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrainingDTO } from 'src/app/models/TrainingDTO';
 import { TrainingService } from 'src/app/lazyModules/trainings/training.service';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-updatetraining',
   templateUrl: './updatetraining.component.html',
-  styleUrls: ['./updatetraining.component.css']
+  styleUrls: ['./updatetraining.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UpdatetrainingComponent implements OnInit,OnDestroy {
-  unsubscribe$ = new Subject<void>()
+export class UpdatetrainingComponent implements OnInit, OnDestroy {
+  readonly url = environment.apiUrl
   trainingForm!: FormGroup;
   training!: TrainingDTO;
-  errroreMsg!: string[];
-  successMsg = '';
+  isSuccess = false;
+  updateTraining$ = new Observable<string>();
+  unsubscribe$ = new Subject<void>()
+
   constructor(
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
@@ -42,16 +46,10 @@ export class UpdatetrainingComponent implements OnInit,OnDestroy {
 
   delete(id: number) {
     this._trainingService.delete(id)
-    .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
           this._router.navigate(['nav', 'trainings'])
-        },
-        error: (err) => {
-          this.errroreMsg = err
-          setTimeout(() => {
-            this.errroreMsg = []
-          }, 3000)
         }
       })
   }
@@ -61,31 +59,28 @@ export class UpdatetrainingComponent implements OnInit,OnDestroy {
     this.trainingForm.get('image')?.setValue(file);
   }
 
+
   update() {
     const formData = this._trainingService.createFormData(this.trainingForm);
-    this._trainingService.update(this.training.id!, formData)
-    .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        {
-          next: () => {
-            this.successMsg = 'update is successful'
-            setTimeout(() => {
-              this.successMsg = ''
-            }, 3000)
-          },
-          error: (err) => {
-            this.errroreMsg = err
-            setTimeout(() => {
-              this.errroreMsg = []
+    this.updateTraining$ = this._trainingService.update(this.training.id!, formData)
+      .pipe(
+        switchMap(() => {
+          return this._trainingService.getTraining(this.training.id!)
+            .pipe(map((res: any): string => {
+              this.training = res.data;
+              this.isSuccess = true;
+              return 'update is successful'
+            }))
+        }),
+        catchError(() => {
+          this.isSuccess = false;
+          return of('update is not available')
+        }))
 
-            }, 5000)
-          }
-        }
-      )
   }
 
   ngOnDestroy(): void {
-   this.unsubscribe$.next();
-   this.unsubscribe$.complete()
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete()
   }
 }

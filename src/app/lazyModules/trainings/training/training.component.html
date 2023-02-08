@@ -1,7 +1,6 @@
-<!-- <img [src]="training.mediaFiles.path"> -->
 
 <div class="card" style="width: 18rem;">
-    <img  class="card-img-top" alt="...">
+    <img  class="card-img-top" [src]="url+'/'+training.mediaFiles.path"  alt="...">
     <div class="card-body">
         <h3 class="card-title">{{training.name}}</h3>
         <p class="card-text">{{training.description}}</p>

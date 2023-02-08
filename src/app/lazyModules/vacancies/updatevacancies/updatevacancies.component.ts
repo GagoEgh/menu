@@ -1,78 +1,67 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { VacancieDTO } from 'src/app/models/VacancieDTO';
 import { VacanciesService } from 'src/app/lazyModules/vacancies/vacancies.service';
 
 @Component({
   selector: 'app-updatevacancies',
   templateUrl: './updatevacancies.component.html',
-  styleUrls: ['./updatevacancies.component.css']
+  styleUrls: ['./updatevacancies.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UpdatevacanciesComponent implements OnInit,OnDestroy {
-
+export class UpdatevacanciesComponent implements OnInit, OnDestroy {
+  updateVacanci$ = new Observable<string>();
   unSubscribe$ = new Subject<void>();
   vacanci!: VacancieDTO;
-  vacanciForm!:FormGroup;
-  errroreMsg!:string;
-  successMsg='';
-  
-
+  vacanciForm!: FormGroup;
+  isSuccess = false;
+ 
   constructor(
     private _vacanciesService: VacanciesService,
     private _activatedRoute: ActivatedRoute,
-    private _fb:FormBuilder,
-    private _router:Router
+    private _fb: FormBuilder,
+    private _router: Router
   ) { }
- 
+
 
   ngOnInit(): void {
     this.vacanci = this._activatedRoute.snapshot.data['vacanciId'];
     this.initVacanciForm();
   }
 
-  initVacanciForm(){
+  initVacanciForm() {
     this.vacanciForm = this._fb.group({
-      description:[this.vacanci.description],
-      shortDescription:[this.vacanci.shortDescription]
+      description: [this.vacanci.description],
+      shortDescription: [this.vacanci.shortDescription]
     })
   }
 
-  update(){
+
+
+  update() {
     const vacancieDTO = new VacancieDTO(this.vacanciForm);
-    this._vacanciesService.updateVacanci(this.vacanci.id!,vacancieDTO)
-    .pipe(takeUntil(this.unSubscribe$))
-    .subscribe({
-      next: () => {
-        this.successMsg = 'update is successful'
-        setTimeout(() => {
-          this.successMsg = ''
-        }, 3000)
-      },
-      error: (err) => {
-        this.errroreMsg = err
-        setTimeout(()=>{
-          this.errroreMsg = ''
-        },3000)
-      }
-    })
+    this.updateVacanci$ = this._vacanciesService.updateVacanci(this.vacanci.id!, vacancieDTO)
+      .pipe(map(() => {
+        this.isSuccess = true;
+        return 'update is successful'
+      }), catchError(() => {
+        this.isSuccess = false
+        return of('update is not available')
+      }))
+
   }
 
-  delete(id:number){
+  delete(id: number) {
     this._vacanciesService.delete(id)
-    .pipe(takeUntil(this.unSubscribe$))
-    .subscribe({
-      next:()=>{
-        this._router.navigate(['nav', 'vacancies'])
-      },
-      error:(err)=>{
-        this.errroreMsg = err
-        setTimeout(()=>{
-          this.errroreMsg = ''
-        },3000)
+      .pipe(takeUntil(this.unSubscribe$))
+      .subscribe({
+        next: () => {
+          this._router.navigate(['nav', 'vacancies'])
+        }
       }
-    })
+      )
   }
 
   ngOnDestroy(): void {

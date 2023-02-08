@@ -6,8 +6,5 @@
         <button class="btn btn-success">update</button>
 
     </form>
-    <p class="success">{{successMsg}}</p>
-    <ul class="errore">
-        <li *ngFor="let err of errroreMsg">{{err}}</li>
-    </ul>
+    <p [ngClass]="isSuccess?'success':'errore'">{{updateVacanci$|async}}</p>
 </section>

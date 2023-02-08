@@ -1,11 +1,11 @@
 export interface IUser {
-    createdAt: string,
+    createdAt?: string,
     email: string,
     firstName: string,
-    id: number,
-    isActive: boolean,
+    id?: number,
+    isActive?: boolean,
     lastName: string,
-    role:IRole
+    role?:IRole
 
 }
 

@@ -16,6 +16,12 @@
 .flex-nowrap{
     margin: 20px 0;
 }
+
+.card-img-top{
+    width: 250px;
+    margin: 50px auto;
+}
+
 .success{
     color: rgb(9, 197, 9);
     font-size: 18px;
@@ -24,6 +30,7 @@
 }
 
 .errore{
+    margin-top: 20px;
     font-size: 18px;
     letter-spacing: 1px;
     color: tomato;

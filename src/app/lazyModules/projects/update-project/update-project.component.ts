@@ -1,24 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ProjectService } from 'src/app/lazyModules/projects/project.service';
+import {catchError, map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 import { ProjectDTO } from 'src/app/models/ProjectDTO';
-import { ProjectService } from 'src/app/lazyModules/projects/project.service';
+
 
 @Component({
   selector: 'app-update-project',
   templateUrl: './update-project.component.html',
   styleUrls: ['./update-project.component.css'],
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdateProjectComponent implements OnInit, OnDestroy {
 
 
   projectForm!: FormGroup;
+  isSuccess = false;
   project!: ProjectDTO;
+  successMsg$ = new Observable<string>();
   unSubscribe$ = new Subject<void>();
-  errroreMsg!: string[];
-  successMsg = '';
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -38,32 +39,25 @@ export class UpdateProjectComponent implements OnInit, OnDestroy {
     this.projectForm = this._fb.group({
       title: [this.project.title],
       description: [this.project.description]
-
     })
-
   }
 
   update() {
     const projectDTO = new ProjectDTO(this.projectForm);
-    this._projectService.putProject(this.project.id!, projectDTO)
-      .pipe(takeUntil(this.unSubscribe$))
-      .subscribe({
-        next: () => {
-          this.successMsg = 'update is successful'
-          setTimeout(() => {
-            this.successMsg = ''
-          }, 3000)
-        },
-        error: (err) => {
-          this.errroreMsg = err
-          setTimeout(() => {
-            this.errroreMsg=[]
-          }, 3000)
-         
-        }
-      })
+    this.successMsg$ = this._projectService.putProject(this.project.id!, projectDTO)
+      .pipe(
+        map(() => {
+          this.isSuccess = true;
+          return 'update is successful'
+        }),
+        catchError((err) => {
+          this.isSuccess = false;
+          return of('update is not available')
+        })
+      )
   }
 
+  
   delete(id: number) {
     this._projectService.deleteProject(id)
       .pipe(takeUntil(this.unSubscribe$))

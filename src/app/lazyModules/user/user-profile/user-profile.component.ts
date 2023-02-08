@@ -11,15 +11,18 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class UserProfileComponent implements OnInit, AfterViewChecked {
 
-  user!: IUser;
-  userForm!: FormGroup
+  user!:IUser
+  userForm!: FormGroup;
+
+
+ 
   constructor(
     private _fb: FormBuilder,
     private _loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-
+    
     this.user = this._loginService.user;
     this.formInit();
   }
@@ -27,8 +30,10 @@ export class UserProfileComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     //  ?? opdatei jamana useri tvjalnery kkorin
     this.user = this._loginService.user;
+  
     this.formInit();
   }
+
 
   formInit() {
     this.userForm = this._fb.group(
@@ -41,6 +46,7 @@ export class UserProfileComponent implements OnInit, AfterViewChecked {
   }
 
   formDisabled() {
-    this.userForm.disable();
+     this.userForm.disable();
+  
   }
 }

@@ -5,9 +5,6 @@
         <textarea class="textarea" rows="4" cols="50" formControlName="description"></textarea>
         <button class="btn btn-success">update</button>
 
-        <p class="success">{{successMsg}}</p>
-        <ul>
-            <li class="errore" *ngFor="let err of errroreMsg">{{err}}</li>
-        </ul>
+        <p  [ngClass]="isSuccess ? 'success':'errore'">{{successMsg$|async}}</p>
     </form>
 </section>

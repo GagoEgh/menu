@@ -32,7 +32,7 @@ export class TrainingService {
 
   update(id: number, training: FormData): Observable<IHttpResponse<TrainingDTO[]>> {
     return this._http.put<IHttpResponse<TrainingDTO[]>>(`/trainings/${id}`, training
-    )
+    )  
 
   }
 

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
 import { VacancieDTO } from 'src/app/models/VacancieDTO';
 import { VacanciesService } from 'src/app/lazyModules/vacancies/vacancies.service';
@@ -8,14 +8,15 @@ import { VacanciesService } from 'src/app/lazyModules/vacancies/vacancies.servic
 @Component({
   selector: 'app-vacancies',
   templateUrl: './vacancies.component.html',
-  styleUrls: ['./vacancies.component.css']
+  styleUrls: ['./vacancies.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class VacanciesComponent implements OnInit, OnDestroy {
+export class VacanciesComponent implements OnInit {
 
+  vacancies$ = new Observable<VacancieDTO[]>();
   vacancieForm!: FormGroup;
-  vacancies!: VacancieDTO[];
-  unSubscribe$ = new Subject<void>();
-  erroreMsg!: string[]
+  erroreMsg!: string[];
+
   constructor(
     private _vacanciesService: VacanciesService,
     private _fb: FormBuilder
@@ -36,22 +37,15 @@ export class VacanciesComponent implements OnInit, OnDestroy {
   }
 
   getVacancies() {
-    this._vacanciesService.getVacancies()
-      .pipe(takeUntil(this.unSubscribe$))
-      .subscribe({
-        next: (res: IHttpResponse<VacancieDTO[]>) => {
-          this.vacancies = res.data
-        },
-        error: (err: string[]) => {
+    this.vacancies$ = this._vacanciesService.getVacancies()
+      .pipe(map((res: IHttpResponse<VacancieDTO[]>) => res.data.reverse()),
+        catchError((err) => {
           this.erroreMsg = err
-       
-          setTimeout(()=>{
-            this.erroreMsg=[]
-            
-          },3000)
-        }
-      })
-
+          setTimeout(() => {
+            this.erroreMsg = []
+          }, 3000)
+          return EMPTY
+        }))
   }
 
   onSubmit() {
@@ -59,25 +53,15 @@ export class VacanciesComponent implements OnInit, OnDestroy {
       return
     }
     const vacancieDTO = new VacancieDTO(this.vacancieForm);
-    this._vacanciesService.postVacancies(vacancieDTO)
-      .pipe(takeUntil(this.unSubscribe$))
-      .subscribe({
-        next: (res) => {
-          this.vacancies = res.data
-        },
-        error: (err: string[]) => {
+    this.vacancies$ = this._vacanciesService.postVacancies(vacancieDTO)
+      .pipe(map((res: IHttpResponse<VacancieDTO[]>) => res.data.reverse()),
+        catchError((err: string[]) => {
           this.erroreMsg = err;
-          setTimeout(()=>{
-            this.erroreMsg=[]
-            
-          },3000)
-        }
-      })
-  }
-
-  ngOnDestroy(): void {
-    this.unSubscribe$.next();
-    this.unSubscribe$.complete()
+          setTimeout(() => {
+            this.erroreMsg = []
+          }, 3000)
+          return EMPTY
+        }))
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TrainingDTO } from 'src/app/models/TrainingDTO';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-training',
@@ -8,22 +9,22 @@ import { TrainingDTO } from 'src/app/models/TrainingDTO';
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
-  
-  @Input()training!:TrainingDTO;
+
+  @Input() training!: TrainingDTO;
+  url = environment.apiUrl
   constructor(
-    private _router:Router
+    private _router: Router
   ) { }
-  
-  
+
+
   ngOnInit(): void {
-    console.log(this.training);
-  
+
   }
 
-  more(){
-    this._router.navigate(['nav', 'trainings','updatetraining', this.training.id])
-    .catch((err)=>{
-      console.log(err)
-    })
+  more() {
+    this._router.navigate(['nav', 'trainings', 'updatetraining', this.training.id])
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }

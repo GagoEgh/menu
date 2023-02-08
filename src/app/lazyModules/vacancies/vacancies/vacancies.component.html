@@ -15,7 +15,7 @@
         <li *ngFor="let err of erroreMsg">{{err}}</li>
     </ul>
     <div class="wrap">
-        <app-vacancie *ngFor="let vacancie of vacancies" [vacancie]="vacancie"></app-vacancie>
+        <app-vacancie *ngFor="let vacancie of vacancies$|async" [vacancie]="vacancie"></app-vacancie>
     </div>
 
 </div>

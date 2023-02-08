@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, EMPTY, map, Observable} from 'rxjs';
 import { IHttpResponse } from 'src/app/models/IHttpResponse';
 import { ProjectDTO } from 'src/app/models/ProjectDTO';
 import { ProjectService } from 'src/app/lazyModules/projects/project.service';
@@ -9,71 +9,65 @@ import { ProjectService } from 'src/app/lazyModules/projects/project.service';
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 
 })
-export class ProjectsComponent implements OnInit, OnDestroy {
+export class ProjectsComponent implements OnInit {
+  projects$ = new Observable<ProjectDTO[]>();
+  projectForm!: FormGroup
+  erroreMsg!: string[];
 
-  projectForm!:FormGroup
-  projects!: ProjectDTO[];
-  subject$ = new Subject<void>();
-  erroreMsg!:string[];
 
   constructor(
     private _projectService: ProjectService,
-    private _fb:FormBuilder
+    private _fb: FormBuilder
   ) { }
 
 
   ngOnInit(): void {
     this.getProjectsAll();
     this.initProjectForm();
+
   }
 
-  initProjectForm(){
+  initProjectForm() {
     this.projectForm = this._fb.group({
-      title:['',[Validators.required]],
-      description:['',[Validators.required]]
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]]
     })
   }
 
   getProjectsAll() {
-    this._projectService.getProjectsAll()
-      .pipe(takeUntil(this.subject$))
-      .subscribe({
-        next: (res: IHttpResponse<ProjectDTO[]>) => {
-          this.projects = res.data.reverse();
-        },
-        error: (err) => {
+    this.projects$ = this._projectService.getProjectsAll()
+      .pipe(
+        map((res: IHttpResponse<ProjectDTO[]>) => res.data.reverse()),
+        catchError((err: string[]) => {
+          
           this.erroreMsg = err
+          console.log(this.erroreMsg)
           setTimeout(() => {
-            this.erroreMsg =[]
+            this.erroreMsg = []
           }, 3000)
-        }
-      })
+          return EMPTY
+        }))
   }
 
-  onSubmit(){
-    if(this.projectForm.invalid){
+  onSubmit() {
+    if (this.projectForm.invalid) {
       return
     }
 
     const projectDTO = new ProjectDTO(this.projectForm)
-    this._projectService.postProject(projectDTO)
-    .pipe(takeUntil(this.subject$))
-    .subscribe({
-      next:(res:IHttpResponse<ProjectDTO[]>)=>{
-        this.projects = res.data.reverse();
-        this.projectForm.reset()
-      },
-      error:(err)=>{
-        this.erroreMsg = err
-      }
-    })
+    this.projects$ = this._projectService.postProject(projectDTO)
+      .pipe(
+        map((res: IHttpResponse<ProjectDTO[]>) => {
+          this.projectForm.reset();
+          return res.data.reverse();
+        }),
+        catchError((err)=>{
+          this.erroreMsg = err
+          return EMPTY
+        }))
 
-  }
-
-  ngOnDestroy(): void {
-    this.subject$.next();
-    this.subject$.complete();
   }
 }

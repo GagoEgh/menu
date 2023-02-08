@@ -34,6 +34,7 @@ export class MainInterceptor implements HttpInterceptor {
     return next.handle(newReq)
       .pipe(
         catchError((err) => {
+          console.log('interseptor',err.error.error.message)
           throw err.error.error.message
         })
       )
