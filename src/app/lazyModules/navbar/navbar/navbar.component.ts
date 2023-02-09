@@ -11,20 +11,29 @@ import { LoginService } from 'src/app/services/login.service';
 export class NavbarComponent implements OnInit {
 
   isUserProfile = false;
-  user!: IUser
+  user!: IUser;
+ 
   constructor(
     private _router: Router,
     private _loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-    setTimeout(()=>{
-      this.user = this._loginService.user;
-    },300)
+  
+     this.getUserData()
     
   }
 
- 
+
+  getUserData(){
+    this._loginService.getUserData()
+    .subscribe({
+      next:(res)=>{
+        this.user = res
+      }
+    })
+  }
+
 
   logout() {
     localStorage.removeItem('accessToken');

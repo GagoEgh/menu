@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IUser } from 'src/app/models/IUser';
 import { LoginService } from 'src/app/services/login.service';
@@ -9,13 +9,11 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit, AfterViewChecked {
+export class UserProfileComponent implements OnInit {
 
   user!:IUser
   userForm!: FormGroup;
 
-
- 
   constructor(
     private _fb: FormBuilder,
     private _loginService: LoginService
@@ -23,15 +21,18 @@ export class UserProfileComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     
-    this.user = this._loginService.user;
-    this.formInit();
+    this.getUserData();
+     this.formInit();
   }
 
-  ngAfterViewChecked(): void {
-    //  ?? opdatei jamana useri tvjalnery kkorin
-    this.user = this._loginService.user;
-  
-    this.formInit();
+
+  getUserData(){
+    this._loginService.getUserData()
+    .subscribe({
+      next:(res)=>{
+        this.user = res;
+      }
+    })
   }
 
 
@@ -43,10 +44,16 @@ export class UserProfileComponent implements OnInit, AfterViewChecked {
         email: [this.user?.email]
       }
     )
+
   }
 
   formDisabled() {
-     this.userForm.disable();
+    const newUser = {
+      firstName:this.userForm.get('firstName')?.value,
+      lastName:this.userForm.get('lastName')?.value,
+      email:this.userForm.get('email')?.value
+      };
+      this._loginService.setUserData(newUser)
   
   }
 }

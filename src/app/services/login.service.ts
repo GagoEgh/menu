@@ -12,13 +12,23 @@ import { IS_AUTH_NEEDED } from './main.interceptor'
   providedIn: 'root'
 })
 export class LoginService {
-  user!: IUser
 
   
-  
+  user$ = new BehaviorSubject<any>(null)
+  userObserv$ = this.user$.asObservable()
+
   constructor(
     private _http: HttpClient
   ) { }
+
+
+  getUserData() {
+    return this.userObserv$
+  }
+
+  setUserData(newValue: any) {
+    return this.user$.next(newValue)
+  }
 
 
   loginUser(data: LoginDTO) {
@@ -35,7 +45,7 @@ export class LoginService {
   getUser(): Observable<IHttpResponse<IUser>> {
     return this._http.get<IHttpResponse<IUser>>('/user/me')
       .pipe(map((res: IHttpResponse<IUser>) => {
-        this.user = res.data
+        this.setUserData(res.data)
         return res
       }))
   }
