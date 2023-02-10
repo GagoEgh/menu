@@ -13,8 +13,8 @@
                     </svg>
                 </span>
                 <div class="user-name">
-                    <p class="firstName">{{user?.firstName}} </p>
-                    <p>{{user?.lastName}}</p>
+                    <p class="firstName">{{(user$ | async)?.firstName}} </p>
+                    <p>{{(user$ | async)?.lastName}}</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-chevron-down down" viewBox="0 0 16 16" (click)="isUserProfile = !isUserProfile">
